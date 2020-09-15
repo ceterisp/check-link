@@ -1,0 +1,12 @@
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\bin\Debug\netcoreapp3.1\CheckLinkCLI.exe
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\bin\Debug\netcoreapp3.1\CheckLinkCLI.deps.json
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\bin\Debug\netcoreapp3.1\CheckLinkCLI.runtimeconfig.json
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\bin\Debug\netcoreapp3.1\CheckLinkCLI.runtimeconfig.dev.json
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\bin\Debug\netcoreapp3.1\CheckLinkCLI.dll
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\bin\Debug\netcoreapp3.1\CheckLinkCLI.pdb
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\obj\Debug\netcoreapp3.1\CheckLinkCLI.AssemblyInfoInputs.cache
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\obj\Debug\netcoreapp3.1\CheckLinkCLI.AssemblyInfo.cs
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\obj\Debug\netcoreapp3.1\CheckLinkCLI.csproj.CoreCompileInputs.cache
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\obj\Debug\netcoreapp3.1\CheckLinkCLI.dll
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\obj\Debug\netcoreapp3.1\CheckLinkCLI.pdb
+D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI\CheckLinkCLI\obj\Debug\netcoreapp3.1\CheckLinkCLI.genruntimeconfig.cache
