@@ -8,6 +8,7 @@ using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using System.Linq;
 
 namespace CheckLinkCLI2
 {
@@ -23,12 +24,25 @@ namespace CheckLinkCLI2
             FileReader FileReader = new FileReader();
             WebLinkChecker LinkChecker = new WebLinkChecker();
 
-            var links = FileReader.ExtractLinks(linkFile);
 
-            foreach (var link in links)
+            if (args.Length != 1 || args.Length > 1)
             {
-                LinkChecker.GetAllEndPointWithUri(link);
+                Console.WriteLine("Please provide file name with links as an argument...");
             }
+
+            else
+            {
+                var links = FileReader.ExtractLinks(args[0]);
+
+                //var links = FileReader.ExtractLinks(linkFile);
+
+                foreach (var link in links)
+                {
+                    LinkChecker.GetAllEndPointWithUri(link);
+                }
+            }
+
+
 
         }
 
