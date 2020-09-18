@@ -3503,11 +3503,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "D:\\Documents\\Seneca College\\OSD600\\check-link\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\CheckLinkCLITest.csproj",
+      "projectUniqueName": "D:\\Documents\\Seneca College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\CheckLinkCLITest.csproj",
       "projectName": "CheckLinkCLITest",
-      "projectPath": "D:\\Documents\\Seneca College\\OSD600\\check-link\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\CheckLinkCLITest.csproj",
+      "projectPath": "D:\\Documents\\Seneca College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\CheckLinkCLITest.csproj",
       "packagesPath": "C:\\Users\\Zayed\\.nuget\\packages\\",
-      "outputPath": "D:\\Documents\\Seneca College\\OSD600\\check-link\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\obj\\",
+      "outputPath": "D:\\Documents\\Seneca College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\obj\\",
       "projectStyle": "PackageReference",
       "fallbackFolders": [
         "C:\\Program Files\\dotnet\\sdk\\NuGetFallbackFolder"
@@ -3526,8 +3526,8 @@
       "frameworks": {
         "netcoreapp3.1": {
           "projectReferences": {
-            "D:\\Documents\\Seneca College\\OSD600\\check-link\\check-link\\CheckLinkCLI2\\CheckLinkCLI2\\CheckLinkCLI2.csproj": {
-              "projectPath": "D:\\Documents\\Seneca College\\OSD600\\check-link\\check-link\\CheckLinkCLI2\\CheckLinkCLI2\\CheckLinkCLI2.csproj"
+            "D:\\Documents\\Seneca College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLI2\\CheckLinkCLI2.csproj": {
+              "projectPath": "D:\\Documents\\Seneca College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLI2\\CheckLinkCLI2.csproj"
             }
           }
         }

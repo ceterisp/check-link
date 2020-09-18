@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "NozlSg3BEfyMfRuQSx42Ralj/r2b9Z9H2lvgvLtyZuNixl6+uhPH3X8swDEGVebQTsu81hsyLMJCzijPt1neVQ==",
+  "dgSpecHash": "MiuU+KBBayyyrFKpGlxrqWlzTrENhYeJCj/1X2ILOrzkyOrrsqKtr2TpN3UptzDGPVbAmwTP7GTqmt5ogFNwkQ==",
   "success": true,
-  "projectFilePath": "D:\\Documents\\Seneca College\\OSD600\\check-link\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\CheckLinkCLITest.csproj",
+  "projectFilePath": "D:\\Documents\\Seneca College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLITest\\CheckLinkCLITest.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\Zayed\\.nuget\\packages\\coverlet.collector\\1.2.0\\coverlet.collector.1.2.0.nupkg.sha512",
     "C:\\Users\\Zayed\\.nuget\\packages\\microsoft.codecoverage\\16.5.0\\microsoft.codecoverage.16.5.0.nupkg.sha512",
