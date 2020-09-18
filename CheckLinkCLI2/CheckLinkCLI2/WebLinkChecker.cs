@@ -28,17 +28,23 @@ namespace CheckLinkCLI2
                 httpClient.Dispose();
                 if ((int)httpStatusCode == 200)
                 {
-                    Console.WriteLine($"{url} : Good");
+                    Console.Write($"{url} : ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.WriteLine("Good");
+
                 }
-                else
+                else if ((int)httpStatusCode == 400 || (int)httpStatusCode == 404)
                 {
-                    Console.WriteLine($"{url} : Bad");
+                    Console.Write($"{url} : ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine("Bad");
                 }
+                Console.ResetColor();
             }
             catch (Exception)
             {
 
-                Console.WriteLine($"{url} : Bad");
+                Console.WriteLine($"{url} : Unknown");
 
             }
 
@@ -76,7 +82,7 @@ namespace CheckLinkCLI2
 
         }
 
- 
+
 
         ///
         /// Checks the file exists or not.
