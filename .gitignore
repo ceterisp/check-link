@@ -24,5 +24,7 @@ bld/
 msbuild.log
 msbuild.err
 msbuild.wrn
-links.txt
-.vs/
+CheckLinkCLI2/CheckLinkCLI2/links.txt
+CheckLinkCLI2/CheckLinkCLI2/urls.txt
+CheckLinkCLI2/.vs/
+
