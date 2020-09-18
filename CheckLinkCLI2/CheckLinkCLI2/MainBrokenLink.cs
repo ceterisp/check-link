@@ -33,6 +33,7 @@ namespace CheckLinkCLI2
             FileReader FileReader = new FileReader();
             WebLinkChecker LinkChecker = new WebLinkChecker();
 
+            //this is a test comment
             if (IsDebug())
             {
                 var links = FileReader.ExtractLinks(linkFile);
