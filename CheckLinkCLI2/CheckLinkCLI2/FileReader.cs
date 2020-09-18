@@ -11,7 +11,7 @@ namespace CheckLinkCLI2
         {
             List<string> links = new List<string>();
 
-            if (File.Exists(file))
+            if (File.Exists(file) && !IsCommandLineOption(MainBrokenLink.version, file))
             {
                 //read the file line by line
                 using (StreamReader sr = new StreamReader(file))
@@ -25,10 +25,26 @@ namespace CheckLinkCLI2
                     }
                     sr.Close();
                 }
-                //string text = File.ReadAllText(file);
-                //Console.WriteLine($"The text inside the file is {file}");
             }
+
+            //else if(!File.Exists(file))
+            //{
+            //    Console.WriteLine($"No such file name {file} exists.");
+            //}
+
             return links;
+        }
+
+        private bool IsCommandLineOption(List<string> commandLineOption, string fileArg)
+        {
+            foreach (var clo in commandLineOption)
+            {
+                if (fileArg.Contains(clo))
+                {
+                    return true;
+                }
+            }
+            return false;
         }
     }
 }
