@@ -1,0 +1,13 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <OutputType>Exe</OutputType>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <Configurations>Debug;Release;Deploy</Configurations>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Remove="Program.cs" />
+  </ItemGroup>
+
+</Project>

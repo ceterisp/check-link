@@ -1,0 +1,12 @@
+{
+  "version": 2,
+  "dgSpecHash": "zfkqHZ0zetqgKi0IEJUqJXMWYdXJnxlExe5MnoSyGbeBsn3GUdThpePWKqoLkq8N2G6hmF4i+ULSLn4vyK0Bog==",
+  "success": true,
+  "projectFilePath": "D:\\Documents\\Seneca College\\OSD600\\check-link\\check-link\\CheckLinkCLI2\\CheckLinkCLI2\\CheckLinkCLI2.csproj",
+  "expectedPackageFiles": [
+    "C:\\Users\\Zayed\\.nuget\\packages\\microsoft.netcore.app.runtime.win-x86\\3.1.8\\microsoft.netcore.app.runtime.win-x86.3.1.8.nupkg.sha512",
+    "C:\\Users\\Zayed\\.nuget\\packages\\microsoft.windowsdesktop.app.runtime.win-x86\\3.1.8\\microsoft.windowsdesktop.app.runtime.win-x86.3.1.8.nupkg.sha512",
+    "C:\\Users\\Zayed\\.nuget\\packages\\microsoft.aspnetcore.app.runtime.win-x86\\3.1.8\\microsoft.aspnetcore.app.runtime.win-x86.3.1.8.nupkg.sha512"
+  ],
+  "logs": []
+}
