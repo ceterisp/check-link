@@ -11,7 +11,7 @@ namespace CheckLinkCLI2
         {
             List<string> links = new List<string>();
 
-            if (File.Exists(file) && !IsCommandLineOption(MainBrokenLink.version, file))
+            if (File.Exists(file) && !IsCommandLineOption(Program.version, file))
             {
                 //read the file line by line
                 using (StreamReader sr = new StreamReader(file))
@@ -35,7 +35,7 @@ namespace CheckLinkCLI2
             return links;
         }
 
-        private bool IsCommandLineOption(List<string> commandLineOption, string fileArg)
+        public static bool IsCommandLineOption(List<string> commandLineOption, string fileArg)
         {
             foreach (var clo in commandLineOption)
             {

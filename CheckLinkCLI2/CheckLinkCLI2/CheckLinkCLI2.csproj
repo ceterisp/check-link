@@ -6,8 +6,4 @@
     <Configurations>Debug;Release;Deploy</Configurations>
   </PropertyGroup>
 
-  <ItemGroup>
-    <Compile Remove="Program.cs" />
-  </ItemGroup>
-
 </Project>

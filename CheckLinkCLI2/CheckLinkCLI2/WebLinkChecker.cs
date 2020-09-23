@@ -19,32 +19,54 @@ namespace CheckLinkCLI2
         public void GetAllEndPointWithUri(string url)
         {
             HttpClient httpClient = new HttpClient();
+            int? statusCode = null ;
             try
             {
                 Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(url);
                 HttpResponseMessage httpResponseMessage = httpResponse.Result;
                 //Console.WriteLine(httpResponseMessage.ToString());
                 HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
+                statusCode = (int)httpStatusCode;
                 httpClient.Dispose();
-                if ((int)httpStatusCode == 200)
+                if (statusCode == 200)
                 {
-                    Console.Write($"{url} : ");
+                    Console.ForegroundColor = ConsoleColor.Green;
+                    Console.Write($"[{statusCode}] ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write($"{url} ");
+                    Console.Write(" : ");
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Good");
 
                 }
-                else if ((int)httpStatusCode == 400 || (int)httpStatusCode == 404)
+                else if (statusCode == 400 || statusCode == 404)
                 {
-                    Console.Write($"{url} : ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write($"[{statusCode}] ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write($"{url} ");
+                    Console.Write(" : ");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine("Bad");
                 }
-                Console.ResetColor();
-            }
+                else if (statusCode != null && statusCode != 400 && statusCode != 404 && statusCode != 200)
+                {
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.Write($"[{statusCode}] ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write($"{url} ");
+                    Console.Write(" : ");
+                    Console.ForegroundColor = ConsoleColor.Yellow;
+                    Console.WriteLine("Unknown");
+                }
+                    Console.ResetColor();
+                }
             catch (Exception)
             {
-
-                Console.WriteLine($"{url} : Unknown");
+                Console.Write("[UKN] ");
+                Console.Write($"{url} ");
+                //Console.Write($"[{statusCode}] : ");
+                Console.WriteLine(": Unknown");
 
             }
 
