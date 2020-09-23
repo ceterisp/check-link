@@ -27,16 +27,12 @@ namespace CheckLinkCLI2
         #endregion
 
         private static readonly string linkFile = @"D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI2\CheckLinkCLI2\urls.txt";
+        private static readonly string htmlFile = @"D:\Documents\Seneca College\OSD600\check-link2\check-link\CheckLinkCLI2\CheckLinkCLI2\index2.html";
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
             {"version",version }
         };
-        //{
-        //     { "version", ["v","-v","version","--version"] },
-
-        //}
-
 
         public static void Main(string[] args)
         {
@@ -47,21 +43,7 @@ namespace CheckLinkCLI2
             {
                 //TODO: Search function that checks only one or few links on-demand
 
-                //Type type = typeof(ConsoleColor);
-                //Console.ForegroundColor = ConsoleColor.White;
-                //foreach (var name in Enum.GetNames(type))
-                //{
-                //    Console.BackgroundColor = (ConsoleColor)Enum.Parse(type, name);
-                //    Console.WriteLine(name);
-                //}
-                //Console.BackgroundColor = ConsoleColor.Black;
-                //foreach (var name in Enum.GetNames(type))
-                //{
-                //    Console.ForegroundColor = (ConsoleColor)Enum.Parse(type, name);
-                //    Console.WriteLine(name);
-                //}
-
-                var links = FileReader.ExtractLinks(linkFile);
+                var links = FileReader.ExtractLinks(htmlFile);
                 foreach (var link in links)
                 {
                     LinkChecker.GetAllEndPointWithUri(link);
@@ -89,13 +71,20 @@ namespace CheckLinkCLI2
                 {
                     foreach (var file in args)
                     {
+                        Console.Write($"===|Access file : ");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"{file}|===\n");
+                        Console.ResetColor();
                         var links = FileReader.ExtractLinks(file);
                         foreach (var link in links)
                         {
                             LinkChecker.GetAllEndPointWithUri(link);
+                            Console.WriteLine("\n");
                         }
                     }
 
+                    Console.WriteLine($"Good links: {WebLinkChecker.goodCounter} | Bad links: {WebLinkChecker.badCounter} | Unknown links: {WebLinkChecker.unknownCounter}");
+                    Console.ReadKey();
                 }
             }
 

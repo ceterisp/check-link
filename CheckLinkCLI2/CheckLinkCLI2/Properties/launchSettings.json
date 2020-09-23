@@ -2,7 +2,7 @@
   "profiles": {
     "CheckLinkCLI2": {
       "commandName": "Project",
-      "commandLineArgs": "-v"
+      "commandLineArgs": "D:\\Documents\\Seneca/ College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLI2\\index2.html"
     }
   }
 }
