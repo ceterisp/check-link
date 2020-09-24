@@ -39,27 +39,27 @@ namespace CheckLinkCLI2
             FileReader FileReader = new FileReader();
             WebLinkChecker LinkChecker = new WebLinkChecker();
 
+            #region Dev env
             if (IsDebug())
             {
                 //TODO: Search function that checks only one or few links on-demand
 
-                var links = FileReader.ExtractLinks(htmlFile);
-                foreach (var link in links)
+                //var links = FileReader.ExtractLinks(htmlFile);
+                //foreach (var link in links)
+                //{
+                //    LinkChecker.GetAllEndPointWithUri(link);
+                //}
+
+                if (args.Length == 0)
                 {
-                    LinkChecker.GetAllEndPointWithUri(link);
+                    Console.WriteLine("Please provide file name with links as an argument...");
+                    Console.WriteLine("For example: CheckLinksCLI2 file_name.txt");
                 }
             }
+            #endregion
 
             else
             {
-                #region Command line options
-                if (version.Contains(args[0]))
-                {
-                    Console.WriteLine("Application Name: CheckLinkCLI2 \n" +
-                        "Release: 0.1");
-                }
-                #endregion
-
                 if (args.Length == 0)
                 {
                     Console.WriteLine("Please provide file name with links as an argument...");
@@ -67,24 +67,43 @@ namespace CheckLinkCLI2
 
                 }
 
+                #region Command line options
+                else if (version.Contains(args[0]))
+                {
+                    Console.WriteLine("Application Name: CheckLinkCLI2 \n" +
+                        "Release: 0.1");
+                }
+                #endregion
+
                 else
                 {
+
                     foreach (var file in args)
                     {
-                        Console.Write($"===|Access file : ");
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.WriteLine($"{file}|===\n");
-                        Console.ResetColor();
-                        var links = FileReader.ExtractLinks(file);
-                        foreach (var link in links)
+                        if (file.StartsWith("http") || file.StartsWith("https"))
                         {
-                            LinkChecker.GetAllEndPointWithUri(link);
+                            LinkChecker.GetAllEndPointWithUri(file);
                             Console.WriteLine("\n");
+                        }
+
+                        else
+                        {
+                            Console.Write("===|Reading file : ");
+                            Console.ForegroundColor = ConsoleColor.Cyan;
+                            Console.WriteLine($"{file}|===\n");
+                            Console.ResetColor();
+                            var links = FileReader.ExtractLinks(file);
+                            foreach (var link in links)
+                            {
+                                LinkChecker.GetAllEndPointWithUri(link);
+                            }
+
+                            Console.WriteLine("\n");
+
                         }
                     }
 
                     Console.WriteLine($"Good links: {WebLinkChecker.goodCounter} | Bad links: {WebLinkChecker.badCounter} | Unknown links: {WebLinkChecker.unknownCounter}");
-                    Console.ReadKey();
                 }
             }
 

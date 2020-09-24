@@ -28,7 +28,14 @@ namespace CheckLinkCLI2
                             foreach (var link in htmlLine)
                             {
                                 string[] l = link.Split("\"");
-                                links.Add(l[1]);
+                                foreach (var i in l)
+                                {
+                                    if(i.StartsWith("http"))
+                                    {
+                                        links.Add(i);
+
+                                    }
+                                }
                             }
                         }
 
