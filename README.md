@@ -6,7 +6,7 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 - Download the executable file CheckLinkCLI2.exe in any local folder of your choice
 - Open Powershell or cmd.exe and navigate to the file path where executable is downloaded
-- Simply type `./CheckLinkCLI2.exe` + the absolute path to your .txt or .html file 
+- Simply type `.\CheckLinkCLI2.exe` + the absolute path to your .txt or .html file 
 - The application will then parse through all the links in the file and return the http status codes to the cli
 
 ## How to run the application in Visual Studio 2019/2017
