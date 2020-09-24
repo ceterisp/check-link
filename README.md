@@ -17,6 +17,6 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 - Change the string variable `linkfile` and `htmlfile` to your .txt and .html file paths(absolute path) accordingly 
 - Press `Ctrl` + `F5` and run the application
 
-## How to contribute to Need-To-Feed
+## How to contribute to Check-Link
 
 - COMING SOON!
