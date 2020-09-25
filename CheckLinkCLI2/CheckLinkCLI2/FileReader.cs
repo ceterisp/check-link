@@ -14,7 +14,6 @@ namespace CheckLinkCLI2
 
             if (File.Exists(file) && !IsCommandLineOption(Program.version, file))
             {
-
                 //read the file line by line
                 using (StreamReader sr = new StreamReader(file))
                 {
@@ -27,8 +26,7 @@ namespace CheckLinkCLI2
                             htmlLine.Add(sr.ReadLine());
                             foreach (var link in htmlLine)
                             {
-                                string[] l = link.Split("\"");
-                                foreach (var i in l)
+                                foreach (var i in link.Split("\""))
                                 {
                                     if(i.StartsWith("http"))
                                     {
@@ -46,6 +44,11 @@ namespace CheckLinkCLI2
                     }
                     sr.Close();
                 }
+            }
+
+            else
+            {
+                links.Add("No file found!");
             }
             return links;
         }

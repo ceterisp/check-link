@@ -1,8 +1,7 @@
 {
   "profiles": {
     "CheckLinkCLI2": {
-      "commandName": "Project",
-      "commandLineArgs": "http://www.facebook.com"
+      "commandName": "Project"
     }
   }
 }

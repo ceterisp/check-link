@@ -1,3 +1,4 @@
+Release*/
 *.swp
 *.*~
 project.lock.json
@@ -27,4 +28,3 @@ msbuild.wrn
 CheckLinkCLI2/CheckLinkCLI2/links.txt
 CheckLinkCLI2/CheckLinkCLI2/urls.txt
 */.vs/
-Release*

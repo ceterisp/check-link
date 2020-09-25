@@ -9,6 +9,7 @@ using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
 using System.Linq;
+using System.IO;
 
 namespace CheckLinkCLI2
 {
@@ -26,8 +27,8 @@ namespace CheckLinkCLI2
 
         #endregion
 
-        private static readonly string linkFile = @"D:\Documents\Seneca College\OSD600\check-link\check-link\CheckLinkCLI2\CheckLinkCLI2\urls.txt";
-        private static readonly string htmlFile = @"D:\Documents\Seneca College\OSD600\check-link2\check-link\CheckLinkCLI2\CheckLinkCLI2\index2.html";
+        private static readonly string linkFile = @"absolutePathToTxtFile.txt";
+        private static readonly string htmlFile = @"absolutePathToHtmlFile.html";
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
@@ -44,17 +45,29 @@ namespace CheckLinkCLI2
             {
                 //TODO: Search function that checks only one or few links on-demand
 
-                //var links = FileReader.ExtractLinks(htmlFile);
-                //foreach (var link in links)
-                //{
-                //    LinkChecker.GetAllEndPointWithUri(link);
-                //}
-
-                if (args.Length == 0)
+                foreach (var input in args)
                 {
-                    Console.WriteLine("Please provide file name with links as an argument...");
-                    Console.WriteLine("For example: CheckLinksCLI2 file_name.txt");
+                    if (!File.Exists(input) && input.Contains(':') && !(input.EndsWith(".txt") || input.EndsWith(".html")) && input.StartsWith("http"))
+                    {
+                        LinkChecker.GetAllEndPointWithUri(input);
+                        Console.WriteLine("\n");
+                    }
+
+                    else if (File.Exists(input))
+                    {
+                        var links = FileReader.ExtractLinks(htmlFile);
+                        foreach (var link in links)
+                        {
+                            LinkChecker.GetAllEndPointWithUri(link);
+                        }
+                    }
+
+                    else
+                    {
+                        Console.WriteLine($"File {input} does not exist");
+                    }
                 }
+
             }
             #endregion
 
@@ -77,10 +90,16 @@ namespace CheckLinkCLI2
 
                 else
                 {
-
                     foreach (var file in args)
                     {
-                        if (file.StartsWith("http") || file.StartsWith("https"))
+                        if (File.Exists(file) && !(file.EndsWith(".txt") || file.EndsWith(".html")))
+                        {
+                            Console.WriteLine($"Application is unable to parse {file} at this moment\n" +
+                                "Please lookout for this feature in a future release\n" +
+                                "Thank you for using CheckLinkCLI2!");
+                        }
+
+                        else if (!File.Exists(file) && file.Contains(':') && !(file.EndsWith(".txt") || file.EndsWith(".html")) && file.StartsWith("http"))
                         {
                             LinkChecker.GetAllEndPointWithUri(file);
                             Console.WriteLine("\n");
@@ -88,32 +107,32 @@ namespace CheckLinkCLI2
 
                         else
                         {
-                            Console.Write("===|Reading file : ");
-                            Console.ForegroundColor = ConsoleColor.Cyan;
-                            Console.WriteLine($"{file}|===\n");
-                            Console.ResetColor();
-                            var links = FileReader.ExtractLinks(file);
-                            foreach (var link in links)
+                            if (File.Exists(file))
                             {
-                                LinkChecker.GetAllEndPointWithUri(link);
+                                Console.Write("===|Reading file : ");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine($"{file}|===\n");
+                                Console.ResetColor();
+                                var links = FileReader.ExtractLinks(file);
+                                links.Sort();
+                                foreach (var link in links)
+                                {
+                                    LinkChecker.GetAllEndPointWithUri(link);
+                                }
+
+                                Console.WriteLine("\n");
                             }
 
-                            Console.WriteLine("\n");
-
+                            else
+                            {
+                                Console.WriteLine("No such file or url exist...\n");
+                            }
                         }
-                    }
 
+                    }
                     Console.WriteLine($"Good links: {WebLinkChecker.goodCounter} | Bad links: {WebLinkChecker.badCounter} | Unknown links: {WebLinkChecker.unknownCounter}");
                 }
             }
-
-
         }
-
-
-
-
-
     }
-
 }
