@@ -3,7 +3,6 @@ using System.Collections;
 using System.Collections.Generic;
 using System.Security.Cryptography.X509Certificates;
 using System.Threading;
-using System.Collections;
 using System.Collections.Concurrent;
 using System.Net;
 using System.Net.Http;
@@ -27,8 +26,8 @@ namespace CheckLinkCLI2
 
         #endregion
 
-        private static readonly string linkFile = @"absolutePathToTxtFile.txt";
-        private static readonly string htmlFile = @"absolutePathToHtmlFile.html";
+        private static readonly string linkFile = "C:\\Users\\joel_\\Documents\\school\\Fall 2020\\OSD600\\lab 2\\testFiles\\index.txt";
+        private static readonly string htmlFile = "C:\\Users\\joel_\\Documents\\school\\Fall 2020\\OSD600\\lab 2\\testFiles\\index3.html";
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
