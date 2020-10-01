@@ -77,13 +77,30 @@ namespace CheckLinkCLI2
                 }
                 Console.ResetColor();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.Write("[UKN] ");
-                Console.Write($"{url} ");
-                //Console.Write($"[{statusCode}] : ");
-                Console.WriteLine(": Unknown");
-                unknownCounter++;
+                if (e.InnerException.Message == "A task was canceled.")
+                {
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("[404] ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write($"{url} ");
+                    //Console.Write($"[{statusCode}] : ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(": Bad (Timeout)");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    badCounter++;
+                }
+                else 
+                {
+                    Console.Write("[UKN] ");
+                    Console.Write($"{url} ");
+                    //Console.Write($"[{statusCode}] : ");
+                    Console.WriteLine(": Unknown");
+                    unknownCounter++;
+                }
+                
+                
             }
 
         }
