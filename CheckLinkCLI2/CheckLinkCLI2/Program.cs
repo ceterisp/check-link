@@ -34,6 +34,8 @@ namespace CheckLinkCLI2
             {"version",version }
         };
 
+        private static readonly string programVersion = "0.0.1";
+
         public static void Main(string[] args)
         {
             FileReader FileReader = new FileReader();
@@ -46,7 +48,12 @@ namespace CheckLinkCLI2
 
                 foreach (var input in args)
                 {
-                    if (!File.Exists(input) && input.Contains(':') && !(input.EndsWith(".txt") || input.EndsWith(".html")) && input.StartsWith("http"))
+                    if(FileReader.IsCommandLineOption(version, input))
+                    {
+                        Console.WriteLine("Check Link CLI version {0}", programVersion);
+                    }
+
+                    else if (!File.Exists(input) && input.Contains(':') && !(input.EndsWith(".txt") || input.EndsWith(".html")) && input.StartsWith("http"))
                     {
                         LinkChecker.GetAllEndPointWithUri(input);
                         Console.WriteLine("\n");

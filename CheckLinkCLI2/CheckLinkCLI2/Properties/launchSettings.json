@@ -7,6 +7,14 @@
     "test2": {
       "commandName": "Project",
       "commandLineArgs": "https://github.com/Seneca-CDOT/topics-in-open-source-2020/wiki/week-03"
+    },
+    "txt file": {
+      "commandName": "Project",
+      "commandLineArgs": "\"C:\\\\Users\\\\joel_\\\\Documents\\\\school\\\\Fall 2020\\\\OSD600\\\\lab 2\\\\testFiles\\\\index.txt\""
+    },
+    "version arg": {
+      "commandName": "Project",
+      "commandLineArgs": "-v"
     }
   }
 }

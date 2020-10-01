@@ -53,7 +53,7 @@ namespace CheckLinkCLI2
             return links;
         }
 
-        private bool IsCommandLineOption(List<string> commandLineOption, string fileArg)
+        public bool IsCommandLineOption(List<string> commandLineOption, string fileArg)
         {
             foreach (var clo in commandLineOption)
             {
