@@ -20,6 +20,7 @@ namespace CheckLinkCLI2
         public void GetAllEndPointWithUri(string url)
         {
             HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = TimeSpan.FromSeconds(3);
             int? statusCode = null;
             try
             {
@@ -33,7 +34,8 @@ namespace CheckLinkCLI2
                 //
 
 
-                Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(url);
+                //Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(url);
+                Task<HttpResponseMessage> httpResponse = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, new Uri(url)));
                 HttpResponseMessage httpResponseMessage = httpResponse.Result;
                 //Console.WriteLine(httpResponseMessage.ToString());
                 HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
