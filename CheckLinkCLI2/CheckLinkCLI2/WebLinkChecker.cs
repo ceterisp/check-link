@@ -20,6 +20,7 @@ namespace CheckLinkCLI2
         public void GetAllEndPointWithUri(string url)
         {
             HttpClient httpClient = new HttpClient();
+            httpClient.Timeout = TimeSpan.FromSeconds(2.5);
             int? statusCode = null;
             try
             {
@@ -33,7 +34,8 @@ namespace CheckLinkCLI2
                 //
 
 
-                Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(url);
+                //Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(url);
+                Task<HttpResponseMessage> httpResponse = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, new Uri(url)));
                 HttpResponseMessage httpResponseMessage = httpResponse.Result;
                 //Console.WriteLine(httpResponseMessage.ToString());
                 HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
@@ -75,45 +77,31 @@ namespace CheckLinkCLI2
                 }
                 Console.ResetColor();
             }
-            catch (Exception)
+            catch (Exception e)
             {
-                Console.Write("[UKN] ");
-                Console.Write($"{url} ");
-                //Console.Write($"[{statusCode}] : ");
-                Console.WriteLine(": Unknown");
-                unknownCounter++;
-            }
-
-        }
-
-        /// <summary>
-        /// Only checks for web links that return a valid HTTP status code
-        /// </summary>
-        public HttpStatusCode GetHttpStatusCode(string url)
-        {
-            // Creating a HttpWebRequest
-            var request = HttpWebRequest.Create(url);
-
-            //Setting the Request method HEAD
-            request.Method = "HEAD";
-
-            //try while we are getting a response
-
-            try
-            {
-                var response = request.GetResponse() as HttpWebResponse;
-
-                if (response != null)
+                if (e.InnerException.Message == "A task was canceled.")
                 {
-                    results = response.StatusCode;
-                    response.Close();
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.Write("[404] ");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    Console.Write($"{url} ");
+                    //Console.Write($"[{statusCode}] : ");
+                    Console.ForegroundColor = ConsoleColor.Red;
+                    Console.WriteLine(": Bad (Timeout)");
+                    Console.ForegroundColor = ConsoleColor.Gray;
+                    badCounter++;
                 }
+                else 
+                {
+                    Console.Write("[UKN] ");
+                    Console.Write($"{url} ");
+                    //Console.Write($"[{statusCode}] : ");
+                    Console.WriteLine(": Unknown");
+                    unknownCounter++;
+                }
+                
+                
             }
-            catch (Exception)
-            {
-                return results;
-            }
-            return results;
 
         }
     }
