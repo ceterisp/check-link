@@ -123,6 +123,32 @@ namespace CheckLinkCLI2
                                 Console.WriteLine("\n");
                             }
 
+                            else if (Directory.Exists(file))
+                            {
+                                Console.Write("===|Reading all files in directory : ");
+                                Console.ForegroundColor = ConsoleColor.Cyan;
+                                Console.WriteLine($"{file}|===\n");
+                                Console.ResetColor();
+                                string[] files = Directory.GetFiles(file);
+                                foreach(string fileInDir in files)
+                                {
+                                    var links = FileReader.ExtractLinks(fileInDir);
+                                    Console.Write("===|Reading file : ");
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                    Console.WriteLine($"{fileInDir}|===\n");
+                                    Console.ResetColor();
+                                    links.Sort();
+                                    foreach(var link in links)
+                                    {
+                                        LinkChecker.GetAllEndPointWithUri(link);
+                                    }
+
+                                    Console.WriteLine("\n");
+
+                                }
+
+                            }
+
                             else
                             {
                                 Console.WriteLine("No such file or url exist...\n");
