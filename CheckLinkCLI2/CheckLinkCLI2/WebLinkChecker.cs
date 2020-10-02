@@ -20,7 +20,7 @@ namespace CheckLinkCLI2
         public void GetAllEndPointWithUri(string url)
         {
             HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromSeconds(3);
+            httpClient.Timeout = TimeSpan.FromSeconds(2.5);
             int? statusCode = null;
             try
             {
@@ -102,37 +102,6 @@ namespace CheckLinkCLI2
                 
                 
             }
-
-        }
-
-        /// <summary>
-        /// Only checks for web links that return a valid HTTP status code
-        /// </summary>
-        public HttpStatusCode GetHttpStatusCode(string url)
-        {
-            // Creating a HttpWebRequest
-            var request = HttpWebRequest.Create(url);
-
-            //Setting the Request method HEAD
-            request.Method = "HEAD";
-
-            //try while we are getting a response
-
-            try
-            {
-                var response = request.GetResponse() as HttpWebResponse;
-
-                if (response != null)
-                {
-                    results = response.StatusCode;
-                    response.Close();
-                }
-            }
-            catch (Exception)
-            {
-                return results;
-            }
-            return results;
 
         }
     }

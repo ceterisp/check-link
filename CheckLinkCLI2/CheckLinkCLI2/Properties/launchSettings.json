@@ -2,7 +2,7 @@
   "profiles": {
     "CheckLinkCLI2": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\\\Users\\\\joel_\\\\Documents\\\\school\\\\Fall 2020\\\\OSD600\\\\lab 2\\\\testFiles\\\\index3.html\""
+      "commandLineArgs": "\"C:\\\\Users\\\\joel_\\\\Documents\\\\school\\\\Fall 2020\\\\OSD600\\\\release 0.1\\\\linkChek\\\\testFiles\\\\index3.html\""
     },
     "test2": {
       "commandName": "Project",
@@ -10,7 +10,7 @@
     },
     "txt file": {
       "commandName": "Project",
-      "commandLineArgs": "\"C:\\\\Users\\\\joel_\\\\Documents\\\\school\\\\Fall 2020\\\\OSD600\\\\lab 2\\\\testFiles\\\\index.txt\""
+      "commandLineArgs": "\"C:\\\\Users\\\\joel_\\\\Documents\\\\school\\\\Fall 2020\\\\OSD600\\\\release 0.1\\\\linkChek\\\\testFiles\\\\index.txt\""
     },
     "version arg": {
       "commandName": "Project",
