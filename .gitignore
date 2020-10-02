@@ -27,5 +27,5 @@ msbuild.err
 msbuild.wrn
 CheckLinkCLI2/CheckLinkCLI2/links.txt
 CheckLinkCLI2/CheckLinkCLI2/urls.txt
-CheckLinkCLI2\CheckLinkCLI2\Properties\launchSettings.json
+CheckLinkCLI2/CheckLinkCLI2/Properties/launchSettings.json
 */.vs/
