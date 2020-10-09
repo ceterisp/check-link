@@ -52,7 +52,7 @@ namespace CheckLinkCLI2
                     Console.WriteLine("Good");
                     goodCounter++;
                 }
-                else if (statusCode == 400 || statusCode == 404 && supportFlag != "--good")
+                else if ((statusCode == 400 || statusCode == 404) && supportFlag != "--good")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"[{statusCode}] ");
@@ -63,7 +63,7 @@ namespace CheckLinkCLI2
                     Console.WriteLine("Bad");
                     badCounter++;
                 }
-                else if (statusCode != null && statusCode != 400 && statusCode != 404 && statusCode != 200)
+                else if (statusCode != null && statusCode != 400 && statusCode != 404 && statusCode != 200 && supportFlag == "--all")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write($"[{statusCode}] ");
@@ -78,7 +78,7 @@ namespace CheckLinkCLI2
             }
             catch (Exception e)
             {
-                if (e.InnerException.Message == "A task was canceled.")
+                if (e.InnerException.Message == "A task was canceled." && supportFlag != "--good")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("[404] ");
@@ -90,18 +90,18 @@ namespace CheckLinkCLI2
                     Console.ForegroundColor = ConsoleColor.Gray;
                     badCounter++;
                 }
-                else 
+                else
                 {
-                    Console.Write("[UKN] ");
-                    Console.Write($"{url} ");
-                    //Console.Write($"[{statusCode}] : ");
-                    Console.WriteLine(": Unknown");
-                    unknownCounter++;
+                    if (supportFlag == "--all")
+                    {
+                        Console.Write("[UKN] ");
+                        Console.Write($"{url} ");
+                        //Console.Write($"[{statusCode}] : ");
+                        Console.WriteLine(": Unknown");
+                        unknownCounter++;
+                    }
                 }
-                
-                
             }
-
         }
 
         /// <summary>

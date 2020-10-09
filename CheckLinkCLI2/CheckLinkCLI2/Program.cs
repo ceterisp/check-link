@@ -64,7 +64,6 @@ namespace CheckLinkCLI2
                         Console.WriteLine("\n");
                     }
 
-                    //else if (File.Exists(input) && (args.Contains<string>(supportFlags[0]) || args.Contains<string>(supportFlags[1]) || args.Contains<string>(supportFlags[2])))
                     else if (File.Exists(input))
                     {
                         foreach (var link in FileReader.ExtractLinks(htmlFile))
@@ -76,11 +75,8 @@ namespace CheckLinkCLI2
                     }
 
                     else
-                    {
                         Console.WriteLine($"File {input} does not exist");
-                    }
                 }
-
             }
             #endregion
 
@@ -132,7 +128,8 @@ namespace CheckLinkCLI2
                                 links.Sort();
                                 foreach (var link in links)
                                 {
-                                    LinkChecker.GetAllEndPointWithUri(link);
+                                    string flag = LinkChecker.SetSupportFlag(args.Last<string>()) == null ? "--all" : LinkChecker.SetSupportFlag(args.Last<string>());
+                                    LinkChecker.GetAllEndPointWithUri(link, flag);
                                 }
 
                                 Console.WriteLine("\n");
@@ -155,7 +152,8 @@ namespace CheckLinkCLI2
                                     links.Sort();
                                     foreach (var link in links)
                                     {
-                                        LinkChecker.GetAllEndPointWithUri(link);
+                                        string flag = LinkChecker.SetSupportFlag(args.Last<string>()) == null ? "--all" : LinkChecker.SetSupportFlag(args.Last<string>());
+                                        LinkChecker.GetAllEndPointWithUri(link, flag);
                                     }
 
                                     Console.WriteLine("\n");
