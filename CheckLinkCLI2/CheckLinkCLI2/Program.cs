@@ -27,12 +27,24 @@ namespace CheckLinkCLI2
 
         #endregion
 
+        #region variables to test
         private static readonly string linkFile = @"absolutePathToTxtFile.txt";
-        private static readonly string htmlFile = @"absolutePathToHtmlFile.html";
+        private static readonly string htmlFile = @"D:\Documents\Seneca_College\OSD600\check-link2\check-link\CheckLinkCLI2\CheckLinkCLI2\index2.html";
+        #endregion
+
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
+        //public static readonly List<string> json = new List<string>() { }
+        public static readonly List<string> supportFlags = new List<string>() { "--all", "--good", "--bad" };
+        //public static readonly Dictionary<int, string> supportFlags = new Dictionary<int, string>()
+        //{
+        //    { 0, "--all"},
+        //    { 1, "--good"},
+        //    { 2, "--bad"}
+        //};
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
-            {"version",version }
+            {"version",version },
+            //{"flag", supportFlags }
         };
 
         public static void Main(string[] args)
@@ -43,7 +55,6 @@ namespace CheckLinkCLI2
             #region Dev env
             if (IsDebug())
             {
-                //TODO: Search function that checks only one or few links on-demand
 
                 foreach (var input in args)
                 {
@@ -53,13 +64,15 @@ namespace CheckLinkCLI2
                         Console.WriteLine("\n");
                     }
 
+                    //else if (File.Exists(input) && (args.Contains<string>(supportFlags[0]) || args.Contains<string>(supportFlags[1]) || args.Contains<string>(supportFlags[2])))
                     else if (File.Exists(input))
                     {
-                        var links = FileReader.ExtractLinks(htmlFile);
-                        foreach (var link in links)
+                        foreach (var link in FileReader.ExtractLinks(htmlFile))
                         {
-                            LinkChecker.GetAllEndPointWithUri(link);
+                            string flag = LinkChecker.SetSupportFlag(args.Last<string>()) == null ? "--all" : LinkChecker.SetSupportFlag(args.Last<string>());
+                            LinkChecker.GetAllEndPointWithUri(link,flag);
                         }
+                        break;
                     }
 
                     else
@@ -109,6 +122,8 @@ namespace CheckLinkCLI2
                         {
                             if (File.Exists(file))
                             {
+                                // TODO: add the support flags here
+
                                 Console.Write("===|Reading file : ");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.WriteLine($"{file}|===\n");
@@ -130,7 +145,7 @@ namespace CheckLinkCLI2
                                 Console.WriteLine($"{file}|===\n");
                                 Console.ResetColor();
                                 string[] files = Directory.GetFiles(file);
-                                foreach(string fileInDir in files)
+                                foreach (string fileInDir in files)
                                 {
                                     var links = FileReader.ExtractLinks(fileInDir);
                                     Console.Write("===|Reading file : ");
@@ -138,7 +153,7 @@ namespace CheckLinkCLI2
                                     Console.WriteLine($"{fileInDir}|===\n");
                                     Console.ResetColor();
                                     links.Sort();
-                                    foreach(var link in links)
+                                    foreach (var link in links)
                                     {
                                         LinkChecker.GetAllEndPointWithUri(link);
                                     }
