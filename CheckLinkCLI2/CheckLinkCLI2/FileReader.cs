@@ -29,27 +29,19 @@ namespace CheckLinkCLI2
                                 foreach (var i in link.Split("\""))
                                 {
                                     if(i.StartsWith("http"))
-                                    {
                                         links.Add(i);
-
-                                    }
                                 }
                             }
                         }
-
                         else
-                        {
                             links.Add(sr.ReadLine());
-                        }
                     }
                     sr.Close();
                 }
             }
-
             else
-            {
                 links.Add("No file found!");
-            }
+
             return links;
         }
 
@@ -58,9 +50,7 @@ namespace CheckLinkCLI2
             foreach (var clo in commandLineOption)
             {
                 if (fileArg.Contains(clo))
-                {
                     return true;
-                }
             }
             return false;
         }
@@ -68,9 +58,7 @@ namespace CheckLinkCLI2
         private bool IsHtmlFile(string html)
         {
             if (html.Contains(".html"))
-            {
                 return true;
-            }
 
             return false;
 

@@ -10,18 +10,18 @@ namespace CheckLinkCLI2
     public class WebLinkChecker
     {
         //initializing the default status code, which is always 0
-        private HttpStatusCode results = default(HttpStatusCode);
+        //private HttpStatusCode results = default(HttpStatusCode);
         public static long goodCounter, badCounter, unknownCounter = 0;
 
         /// <summary>
         /// Prints Good and Bad link to console
         /// </summary>
         /// <param name="url"></param>
-        public void GetAllEndPointWithUri(string url)
+        public void GetAllEndPointWithUri(string url, string supportFlag = "--all")
         {
             HttpClient httpClient = new HttpClient();
             httpClient.Timeout = TimeSpan.FromSeconds(2.5);
-            int? statusCode = null;
+            int? statusCode;
             try
             {
                 //TODO:
@@ -41,7 +41,7 @@ namespace CheckLinkCLI2
                 HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
                 statusCode = (int)httpStatusCode;
                 httpClient.Dispose();
-                if (statusCode == 200)
+                if (statusCode == 200 && supportFlag != "--bad")
                 {
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"[{statusCode}] ");
@@ -51,9 +51,8 @@ namespace CheckLinkCLI2
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.WriteLine("Good");
                     goodCounter++;
-
                 }
-                else if (statusCode == 400 || statusCode == 404)
+                else if ((statusCode == 400 || statusCode == 404) && supportFlag != "--good")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"[{statusCode}] ");
@@ -64,7 +63,7 @@ namespace CheckLinkCLI2
                     Console.WriteLine("Bad");
                     badCounter++;
                 }
-                else if (statusCode != null && statusCode != 400 && statusCode != 404 && statusCode != 200)
+                else if (statusCode != null && statusCode != 400 && statusCode != 404 && statusCode != 200 && supportFlag == "--all")
                 {
                     Console.ForegroundColor = ConsoleColor.Yellow;
                     Console.Write($"[{statusCode}] ");
@@ -79,7 +78,7 @@ namespace CheckLinkCLI2
             }
             catch (Exception e)
             {
-                if (e.InnerException.Message == "A task was canceled.")
+                if (e.InnerException.Message == "A task was canceled." && supportFlag != "--good")
                 {
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write("[404] ");
@@ -91,18 +90,33 @@ namespace CheckLinkCLI2
                     Console.ForegroundColor = ConsoleColor.Gray;
                     badCounter++;
                 }
-                else 
+                else
                 {
-                    Console.Write("[UKN] ");
-                    Console.Write($"{url} ");
-                    //Console.Write($"[{statusCode}] : ");
-                    Console.WriteLine(": Unknown");
-                    unknownCounter++;
+                    if (supportFlag == "--all")
+                    {
+                        Console.Write("[UKN] ");
+                        Console.Write($"{url} ");
+                        //Console.Write($"[{statusCode}] : ");
+                        Console.WriteLine(": Unknown");
+                        unknownCounter++;
+                    }
                 }
-                
-                
             }
-
         }
+
+        /// <summary>
+        /// Returns Support Flag value
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns></returns>
+        public string SetSupportFlag(string flag)
+        {
+            if (Program.supportFlags.Contains(flag))
+                return Program.supportFlags[Program.supportFlags.IndexOf(flag)];
+            else
+                return Program.supportFlags[0];
+        }
+
     }
+
 }
