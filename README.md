@@ -14,7 +14,7 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 - The follow command will return the current version of the application.
 
--Type '.\CheckLinkCLI2.exe' + -v or --version
+- Type '.\CheckLinkCLI2.exe' + -v or --version
 
 
 ### Filtered results using support flag `--all` `--good` `--bad`
@@ -25,7 +25,9 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 ### Writing to a JSON file
 
--Type `.\CheckLinkCLI2.exe` + `C:\Directory\fileName` +`-j` or `\j` or `--json`
+- This feature will write all the links and its status code including helpful things like link statuses (e.g. good or bad) into a JSON file. 
+
+- Type `.\CheckLinkCLI2.exe` + `C:\Directory\fileName` +`-j` or `\j` or `--json`
 
 ## How to run the application in Visual Studio 2019/2017
 
