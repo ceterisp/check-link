@@ -35,12 +35,6 @@ namespace CheckLinkCLI2
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static readonly List<string> json = new List<string>() { "-j", @"\j", "--json" };
         public static readonly List<string> supportFlags = new List<string>() { "--all", "--good", "--bad" };
-        //public static readonly Dictionary<int, string> supportFlags = new Dictionary<int, string>()
-        //{
-        //    { 0, "--all"},
-        //    { 1, "--good"},
-        //    { 2, "--bad"}
-        //};
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
             {"version",version },
@@ -138,8 +132,6 @@ namespace CheckLinkCLI2
                         {
                             if (File.Exists(file))
                             {
-                                // TODO: add the support flags here
-
                                 Console.Write("===|Reading file : ");
                                 Console.ForegroundColor = ConsoleColor.Cyan;
                                 Console.WriteLine($"{file}|===\n");
@@ -177,17 +169,12 @@ namespace CheckLinkCLI2
                                     }
 
                                     Console.WriteLine("\n");
-
                                 }
-
                             }
 
                             else
-                            {
                                 Console.WriteLine("No such file or url exist...\n");
-                            }
                         }
-
                     }
                     Console.WriteLine($"Good links: {WebLinkChecker.goodCounter} | Bad links: {WebLinkChecker.badCounter} | Unknown links: {WebLinkChecker.unknownCounter}");
                 }
