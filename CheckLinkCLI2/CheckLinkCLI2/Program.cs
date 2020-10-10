@@ -33,7 +33,7 @@ namespace CheckLinkCLI2
         #endregion
 
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
-        //public static readonly List<string> json = new List<string>() { }
+        public static readonly List<string> json = new List<string>() { "-j", @"\j", "--json" };
         public static readonly List<string> supportFlags = new List<string>() { "--all", "--good", "--bad" };
         //public static readonly Dictionary<int, string> supportFlags = new Dictionary<int, string>()
         //{
@@ -66,12 +66,21 @@ namespace CheckLinkCLI2
 
                     else if (File.Exists(input))
                     {
-                        foreach (var link in FileReader.ExtractLinks(htmlFile))
+                        if (!json.Contains(args.Last<string>()))
                         {
-                            string flag = LinkChecker.SetSupportFlag(args.Last<string>()) == null ? "--all" : LinkChecker.SetSupportFlag(args.Last<string>());
-                            LinkChecker.GetAllEndPointWithUri(link,flag);
+                            foreach (var link in FileReader.ExtractLinks(htmlFile))
+                            {
+                                string flag = LinkChecker.SetSupportFlag(args.Last<string>()) == null ? "--all" : LinkChecker.SetSupportFlag(args.Last<string>());
+                                LinkChecker.GetAllEndPointWithUri(link, flag);
+                            }
+                            break;
                         }
-                        break;
+                        else
+                        {
+                            FileReader.WriteToJSON(input);
+                            Console.WriteLine($"Results of the links in {input} have been added to CheckLinkCLI2.json located in the current directory");
+                            break;
+                        }
                     }
 
                     else
@@ -112,6 +121,16 @@ namespace CheckLinkCLI2
                         {
                             LinkChecker.GetAllEndPointWithUri(file);
                             Console.WriteLine("\n");
+                        }
+
+                        if (json.Contains(args.Last<string>()))
+                        {
+                            foreach (var link in FileReader.ExtractLinks(file))
+                            {
+                                FileReader.WriteToJSON(file);
+                                Console.WriteLine($"\nResults of the links in {file} have been added to CheckLinkCLI2.json located in the current directory\n");
+                                break;
+                            }
                         }
 
                         else

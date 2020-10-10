@@ -4,6 +4,8 @@ using System.Text;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
+using CheckLinkCLI2.Models;
+using CheckLinkCLI2.General;
 
 namespace CheckLinkCLI2
 {
@@ -12,7 +14,7 @@ namespace CheckLinkCLI2
         //initializing the default status code, which is always 0
         //private HttpStatusCode results = default(HttpStatusCode);
         public static long goodCounter, badCounter, unknownCounter = 0;
-
+        FileReader fr = new FileReader();
         /// <summary>
         /// Prints Good and Bad link to console
         /// </summary>
@@ -24,6 +26,8 @@ namespace CheckLinkCLI2
             int? statusCode;
             try
             {
+                int count = 0;
+
                 //TODO:
                 //add support for timeouts, DNS resolution issues, or other server errors when accessing a bad URL. A bad domain, URL, or server shouldn't crash your tool.
                 //add a command line flag:
@@ -43,6 +47,9 @@ namespace CheckLinkCLI2
                 httpClient.Dispose();
                 if (statusCode == 200 && supportFlag != "--bad")
                 {
+                    Link link = new Link();
+                    link.Id = count++;
+                    link.StatusCode = statusCode; // adding the statuscode inside the object
                     Console.ForegroundColor = ConsoleColor.Green;
                     Console.Write($"[{statusCode}] ");
                     Console.ForegroundColor = ConsoleColor.Gray;
@@ -54,6 +61,8 @@ namespace CheckLinkCLI2
                 }
                 else if ((statusCode == 400 || statusCode == 404) && supportFlag != "--good")
                 {
+                    Link link = new Link();
+                    link.Id = count++;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"[{statusCode}] ");
                     Console.ForegroundColor = ConsoleColor.Gray;
@@ -117,6 +126,56 @@ namespace CheckLinkCLI2
                 return Program.supportFlags[0];
         }
 
-    }
+        /// <summary>
+        /// Returns a List of Link objects and its properties
+        /// </summary>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public List<Link> GetLinkDetails(string file)
+        {
+            int count = 0;
+            int? statusCode;
+            var link = new List<Link>();
+            int totalFiles = fr.ExtractLinks(file).Count;
+            Console.WriteLine("\nAdding link results to JSON file...\n");
+            foreach (var parselink in fr.ExtractLinks(file))
+            {
+                try
+                {
+                    HttpClient httpClient = new HttpClient();
+                    httpClient.Timeout = TimeSpan.FromSeconds(2.5);
+                    Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(parselink);
+                    HttpResponseMessage httpResponseMessage = httpResponse.Result;
+                    HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
+                    statusCode = (int)httpStatusCode;
+                    httpClient.Dispose();
+                    var l = new Link()
+                    {
+                        Id = count++,
+                        Url = parselink,
+                        StatusCode = statusCode,
+                        LinkStatus = statusCode == 200 ? "Good" : "Bad"
+                    };
 
+                    link.Add(l);
+                    Utility.ProgressBar(count, totalFiles);
+                }
+                catch (Exception e)
+                {
+                    var l = new Link()
+                    {
+                        Id = count++,
+                        Url = parselink,
+                        StatusCode = 000,
+                        LinkStatus = "Unknown"
+                    };
+
+                    link.Add(l);
+                    Utility.ProgressBar(count, totalFiles);
+                }
+            }
+
+            return link;
+        }
+    }
 }
