@@ -30,7 +30,7 @@ namespace CheckLinkCLI2
                             {
                                 foreach (var i in link.Split("\""))
                                 {
-                                    if(i.StartsWith("http"))
+                                    if (i.StartsWith("http"))
                                         links.Add(i);
                                 }
                             }
@@ -71,26 +71,15 @@ namespace CheckLinkCLI2
         /// <param name="url"></param>
         public void WriteToJSON(string file)
         {
-            try
+            const string fileName = @"\CheckLinkCLI2JsonOutput.json";
+            WebLinkChecker lc = new WebLinkChecker();
+            var link = lc.GetLinkDetails(file);
+            var jsonToWrite = JsonConvert.SerializeObject(link, Formatting.Indented);
+            string path = Directory.GetCurrentDirectory() + fileName;
+            using (var writer = new StreamWriter(path))
             {
-                const string fileName = @"\CheckLinkCLI2JsonOutput.json";
-                WebLinkChecker lc = new WebLinkChecker();
-                var link = lc.GetLinkDetails(file);
-                var jsonToWrite = JsonConvert.SerializeObject(link, Formatting.Indented);
-                string path = Directory.GetCurrentDirectory() + fileName;
-                using (var writer = new StreamWriter(path))
-                {
-                    writer.Write(jsonToWrite);
-                }
+                writer.Write(jsonToWrite);
             }
-            catch (Exception)
-            {
-
-                throw;
-            }
-
-
         }
-
     }
 }
