@@ -1,4 +1,6 @@
-﻿using System;
+﻿using CheckLinkCLI2.Models;
+using Newtonsoft.Json;
+using System;
 using System.Collections.Generic;
 using System.IO;
 using System.Linq.Expressions;
@@ -61,6 +63,32 @@ namespace CheckLinkCLI2
                 return true;
 
             return false;
+
+        }
+        /// <summary>
+        /// Receives file and writes it to a JSON file
+        /// </summary>
+        /// <param name="url"></param>
+        public void WriteToJSON(string file)
+        {
+            try
+            {
+                const string fileName = @"\CheckLinkCLI2JsonOutput.json";
+                WebLinkChecker lc = new WebLinkChecker();
+                var link = lc.GetLinkDetails(file);
+                var jsonToWrite = JsonConvert.SerializeObject(link, Formatting.Indented);
+                string path = Directory.GetCurrentDirectory() + fileName;
+                using (var writer = new StreamWriter(path))
+                {
+                    writer.Write(jsonToWrite);
+                }
+            }
+            catch (Exception)
+            {
+
+                throw;
+            }
+
 
         }
 
