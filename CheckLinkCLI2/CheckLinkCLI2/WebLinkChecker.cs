@@ -15,6 +15,7 @@ namespace CheckLinkCLI2
         //private HttpStatusCode results = default(HttpStatusCode);
         public static long goodCounter, badCounter, unknownCounter = 0;
         FileReader fr = new FileReader();
+        
         /// <summary>
         /// Prints Good and Bad link to console
         /// </summary>
@@ -37,11 +38,9 @@ namespace CheckLinkCLI2
                 //4. add support for parallelization, using multiple CPU cores so your program can do more than one thing at a time
                 //
 
-
                 //Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(url);
                 Task<HttpResponseMessage> httpResponse = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, new Uri(url)));
                 HttpResponseMessage httpResponseMessage = httpResponse.Result;
-                //Console.WriteLine(httpResponseMessage.ToString());
                 HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
                 statusCode = (int)httpStatusCode;
                 httpClient.Dispose();
@@ -114,7 +113,7 @@ namespace CheckLinkCLI2
         }
 
         /// <summary>
-        /// Returns Support Flag value
+        /// Returns Support Flag value for JSON 
         /// </summary>
         /// <param name="flag"></param>
         /// <returns></returns>
