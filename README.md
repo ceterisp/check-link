@@ -10,6 +10,8 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 - If the passed file or file path is a directory, the application will read all the files in this directory
 - The application will then parse through all the links in the file and return the http status codes to the cli
 
+## Features
+
 ### Version
 
 - The follow command will return the current version of the application.
@@ -29,6 +31,7 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 - Type `.\CheckLinkCLI2.exe` + `C:\Directory\fileName` +`-j` or `\j` or `--json`
 
+
 ## How to run the application in Visual Studio 2019/2017
 
 - Click the green 'Code' dropdown button and select 'Download Zip'
@@ -36,6 +39,7 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 - Open the solution using Visual Studio and build the application 
 - Change the string variable `linkfile` and `htmlfile` to your .txt and .html file paths(absolute path) accordingly 
 - Press `Ctrl` + `F5` and run the application
+
 
 ## How to contribute to Check-Link
 
