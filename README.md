@@ -12,7 +12,20 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 ### Version
 
+- The follow command will return the current version of the application.
+
 -Type '.\CheckLinkCLI2.exe' + -v or --version
+
+
+### Filtered results using support flag `--all` `--good` `--bad`
+
+- Adding flags such as `--good` will return all the links with status `200`. For example, `.\CheckLinkCLI2.exe` + `C:\Directory\fileName` +`--good`
+- Adding flags like `--bad` will return all the links are not `OK` . For example, `.\CheckLinkCLI2.exe` + `C:\Directory\fileName` +`--bad`
+- Adding the flag `--all` will simply return show all the links and their statuses. Its equilavent to not adding any flag at all. 
+
+### Writing to a JSON file
+
+-Type `.\CheckLinkCLI2.exe` + `C:\Directory\fileName` +`-j` or `\j` or `--json`
 
 ## How to run the application in Visual Studio 2019/2017
 
