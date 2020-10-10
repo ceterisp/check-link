@@ -128,9 +128,10 @@ namespace CheckLinkCLI2
                             foreach (var link in FileReader.ExtractLinks(file))
                             {
                                 FileReader.WriteToJSON(file);
-                                Console.WriteLine($"\nResults of the links in {file} have been added to CheckLinkCLI2.json located in the current directory\n");
+                                Console.WriteLine($"\n\nResults of the links in {file} have been added to CheckLinkCLI2.json located in the current directory\n");
                                 break;
                             }
+                            break;
                         }
 
                         else
