@@ -35,6 +35,7 @@ namespace CheckLinkCLI2
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static readonly List<string> json = new List<string>() { "-j", @"\j", "--json" };
         public static readonly List<string> supportFlags = new List<string>() { "--all", "--good", "--bad" };
+        public static readonly List<string> ignore = new List<string>() { "--ignore", "-i", @"\i" };
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
             {"version",version },
@@ -49,7 +50,7 @@ namespace CheckLinkCLI2
             #region Dev env
             if (IsDebug())
             {
-
+                
                 foreach (var input in args)
                 {
                     if (!File.Exists(input) && input.Contains(':') && !(input.EndsWith(".txt") || input.EndsWith(".html")) && input.StartsWith("http"))
@@ -99,6 +100,35 @@ namespace CheckLinkCLI2
                         "Release: 0.1");
                 }
                 #endregion
+
+                else if (ignore.Contains(args.Last<string>()))
+                {
+                    if(args.Length == 3)
+                    {
+                        var ignorePatternFile = args[0];
+                        var sourceFile = args[1];
+                        var patterns = FileReader.ReadIgnorePatterns(ignorePatternFile);
+                        var links = FileReader.ExtractLinks(sourceFile);
+                        var allowedLinks = links.Where(l => !patterns.Any(p => l.StartsWith(p)));
+                        Console.Write("===|Reading file : ");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"{sourceFile}|===\n");
+                        Console.ResetColor();
+                        Console.Write("===|Ignore pattern file : ");
+                        Console.ForegroundColor = ConsoleColor.Cyan;
+                        Console.WriteLine($"{ignorePatternFile}|===\n");
+                        Console.ResetColor();
+                        foreach(var link in allowedLinks)
+                        {
+                            LinkChecker.GetAllEndPointWithUri(link);                        
+                        }
+                    }
+                    else
+                    {
+                        Console.WriteLine("Your inputs for ignore feature are wrong. Please follow the format and try again.");
+                        Console.WriteLine("For example: CheckLinksCLI2 ignore_pattern.txt file_name.txt --ignore");
+                    }
+                }
 
                 else
                 {

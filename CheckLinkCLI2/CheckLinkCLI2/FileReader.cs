@@ -81,5 +81,61 @@ namespace CheckLinkCLI2
                 writer.Write(jsonToWrite);
             }
         }
+
+        public bool IsValidIgnorePattern(string file)
+        {
+            bool isValid = false;
+            int validPattern = 0;
+            int invalidPattern = 0;
+            
+            var lines = ExtractLinks(file);
+            
+                foreach(var line in lines)
+                {
+                    if(line.StartsWith("#") || line.StartsWith("http://") || line.StartsWith("https://"))
+                    {                    
+                        validPattern++;
+                    }
+                    else
+                    {
+                        invalidPattern++;
+                    }
+                }
+                if(invalidPattern > 0)
+                {
+                    isValid = false;
+                }
+                else
+                {
+                    isValid = true;
+                }
+        
+            
+            return isValid;
+        }
+
+        public List<string> ReadIgnorePatterns(string file)
+        {
+            List<string> ignorePatterns = new List<String>();
+            var lines = ExtractLinks(file);
+            if(IsValidIgnorePattern(file))
+            {
+                foreach(string line in lines){
+                    if(line.StartsWith("http://") || line.StartsWith("https://"))
+                    {
+                        ignorePatterns.Add(line);
+                    }
+                    else{}
+                }
+            }
+            else
+            {
+                Console.WriteLine("The ignore pattern file is invalid. A ignore pattern file should not include anything other than a comment(#) or a URL(http://, https://).");
+                System.Environment.Exit(1);
+            }   
+           
+            return ignorePatterns;
+            
+        }
     }
 }

@@ -31,6 +31,11 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 - Type `.\CheckLinkCLI2.exe` + `C:\Directory\fileName` +`-j` or `\j` or `--json`
 
+### Apply patterns to ignore specific urls
+
+- This feature requires an **ignore file** with url patterns. It can only include comments (starts with `#`) and/or url patterns that starts with `http://` or `https://`. 
+- Type `.\CheckLinkCLI2.exe` + `C:\Directory\ignorePatternFileName` + `C:\Directory\filename` + `-ignore` or `-i` or `\i`
+
 
 ## How to run the application in Visual Studio 2019/2017
 
