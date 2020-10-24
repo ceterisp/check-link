@@ -93,24 +93,14 @@ namespace CheckLinkCLI2
                 foreach(var line in lines)
                 {
                     if(line.StartsWith("#") || line.StartsWith("http://") || line.StartsWith("https://"))
-                    {                    
                         validPattern++;
-                    }
                     else
-                    {
                         invalidPattern++;
-                    }
                 }
                 if(invalidPattern > 0)
-                {
                     isValid = false;
-                }
                 else
-                {
                     isValid = true;
-                }
-        
-            
             return isValid;
         }
 
@@ -125,7 +115,6 @@ namespace CheckLinkCLI2
                     {
                         ignorePatterns.Add(line);
                     }
-                    else{}
                 }
             }
             else

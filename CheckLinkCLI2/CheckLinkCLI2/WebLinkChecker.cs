@@ -6,47 +6,64 @@ using System.Net.Http;
 using System.Threading.Tasks;
 using CheckLinkCLI2.Models;
 using CheckLinkCLI2.General;
+using System.Net.NetworkInformation;
+using System.Linq;
 
 namespace CheckLinkCLI2
 {
     public class WebLinkChecker
     {
-        //initializing the default status code, which is always 0
-        //private HttpStatusCode results = default(HttpStatusCode);
-        public static long goodCounter, badCounter, unknownCounter = 0;
-        FileReader fr = new FileReader();
-        
+        private static long goodCounter, badCounter, unknownCounter = 0;
+        private readonly FileReader fr = new FileReader();
+        private readonly List<string> supportFlags = new List<string>() { "--all", "--good", "--bad" };
+
+        /// <summary>
+        /// Returns total number of good links
+        /// </summary>
+        /// <returns></returns>
+        public static long GetGoodCounter()
+        {
+            return goodCounter;
+        }
+        /// <summary>
+        /// Returns total number of bad links
+        /// </summary>
+        /// <returns></returns>
+        public static long GetBadCounter()
+        {
+            return badCounter;
+        }
+        /// <summary>
+        /// Returns total number of unknown links
+        /// </summary>
+        /// <returns></returns>
+        public static long GetUnknownCounter()
+        {
+            return unknownCounter;
+        }
+
         /// <summary>
         /// Prints Good and Bad link to console
         /// </summary>
         /// <param name="url"></param>
         public void GetAllEndPointWithUri(string url, string supportFlag = "--all")
         {
-            HttpClient httpClient = new HttpClient();
-            httpClient.Timeout = TimeSpan.FromSeconds(2.5);
+            HttpClient httpClient = new HttpClient
+            {
+                Timeout = TimeSpan.FromSeconds(2.5)
+            };
             int? statusCode;
             try
             {
                 int count = 0;
-
-                //TODO:
-                //add support for timeouts, DNS resolution issues, or other server errors when accessing a bad URL. A bad domain, URL, or server shouldn't crash your tool.
-                //add a command line flag:
-                //1. to allow specifying a custom User Agent string when doing network requests
-                //2. to allow checking for archived versions of URLs using the WayBackMachine
-                //3. to allow checking whether http:// URLs actually work using https://
-                //4. add support for parallelization, using multiple CPU cores so your program can do more than one thing at a time
-                //
-
-                //Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(url);
                 Task<HttpResponseMessage> httpResponse = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, new Uri(url)));
                 HttpResponseMessage httpResponseMessage = httpResponse.Result;
                 HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
                 statusCode = (int)httpStatusCode;
                 httpClient.Dispose();
+                Link link = new Link();
                 if (statusCode == 200 && supportFlag != "--bad")
                 {
-                    Link link = new Link();
                     link.Id = count++;
                     link.StatusCode = statusCode; // adding the statuscode inside the object
                     Console.ForegroundColor = ConsoleColor.Green;
@@ -60,7 +77,6 @@ namespace CheckLinkCLI2
                 }
                 else if ((statusCode == 400 || statusCode == 404) && supportFlag != "--good")
                 {
-                    Link link = new Link();
                     link.Id = count++;
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.Write($"[{statusCode}] ");
@@ -92,7 +108,6 @@ namespace CheckLinkCLI2
                     Console.Write("[404] ");
                     Console.ForegroundColor = ConsoleColor.Gray;
                     Console.Write($"{url} ");
-                    //Console.Write($"[{statusCode}] : ");
                     Console.ForegroundColor = ConsoleColor.Red;
                     Console.WriteLine(": Bad (Timeout)");
                     Console.ForegroundColor = ConsoleColor.Gray;
@@ -104,7 +119,6 @@ namespace CheckLinkCLI2
                     {
                         Console.Write("[UKN] ");
                         Console.Write($"{url} ");
-                        //Console.Write($"[{statusCode}] : ");
                         Console.WriteLine(": Unknown");
                         unknownCounter++;
                     }
@@ -119,10 +133,10 @@ namespace CheckLinkCLI2
         /// <returns></returns>
         public string SetSupportFlag(string flag)
         {
-            if (Program.supportFlags.Contains(flag))
-                return Program.supportFlags[Program.supportFlags.IndexOf(flag)];
+            if (supportFlags.Contains(flag))
+                return supportFlags[supportFlags.IndexOf(flag)];
             else
-                return Program.supportFlags[0];
+                return supportFlags[0];
         }
 
         /// <summary>
@@ -134,15 +148,17 @@ namespace CheckLinkCLI2
         {
             int count = 0;
             int? statusCode;
-            var link = new List<Link>();
+            List<Link> link = new List<Link>();
             int totalFiles = fr.ExtractLinks(file).Count;
             Console.WriteLine("\nAdding link results to JSON file...\n");
             foreach (var parselink in fr.ExtractLinks(file))
             {
                 try
                 {
-                    HttpClient httpClient = new HttpClient();
-                    httpClient.Timeout = TimeSpan.FromSeconds(2.5);
+                    HttpClient httpClient = new HttpClient
+                    {
+                        Timeout = TimeSpan.FromSeconds(2.5)
+                    };
                     Task<HttpResponseMessage> httpResponse = httpClient.GetAsync(parselink);
                     HttpResponseMessage httpResponseMessage = httpResponse.Result;
                     HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
@@ -176,5 +192,21 @@ namespace CheckLinkCLI2
 
             return link;
         }
+        /// <summary>
+        /// Prints each link, status and the code to the console
+        /// </summary>
+        /// <param name="links"> The links after parsed from the file</param>
+        /// <param name="args">The file path</param>
+        public void DisplayLinks(List<string> links, string[] args)
+        {
+            links.Sort();
+            foreach (var link in links)
+            {
+                string flag = SetSupportFlag(args.Last<string>()) ?? "--all";
+                GetAllEndPointWithUri(link, flag);
+            }
+            Console.WriteLine("\n");
+        }
+
     }
 }

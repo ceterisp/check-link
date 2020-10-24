@@ -34,12 +34,10 @@ namespace CheckLinkCLI2
 
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static readonly List<string> json = new List<string>() { "-j", @"\j", "--json" };
-        public static readonly List<string> supportFlags = new List<string>() { "--all", "--good", "--bad" };
         public static readonly List<string> ignore = new List<string>() { "--ignore", "-i", @"\i" };
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
             {"version",version },
-            //{"flag", supportFlags }
         };
 
         public static void Main(string[] args)
@@ -50,7 +48,7 @@ namespace CheckLinkCLI2
             #region Dev env
             if (IsDebug())
             {
-                
+
                 foreach (var input in args)
                 {
                     if (!File.Exists(input) && input.Contains(':') && !(input.EndsWith(".txt") || input.EndsWith(".html")) && input.StartsWith("http"))
@@ -103,7 +101,7 @@ namespace CheckLinkCLI2
 
                 else if (ignore.Contains(args.Last<string>()))
                 {
-                    if(args.Length == 3)
+                    if (args.Length == 3)
                     {
                         var ignorePatternFile = args[0];
                         var sourceFile = args[1];
@@ -118,9 +116,9 @@ namespace CheckLinkCLI2
                         Console.ForegroundColor = ConsoleColor.Cyan;
                         Console.WriteLine($"{ignorePatternFile}|===\n");
                         Console.ResetColor();
-                        foreach(var link in allowedLinks)
+                        foreach (var link in allowedLinks)
                         {
-                            LinkChecker.GetAllEndPointWithUri(link);                        
+                            LinkChecker.GetAllEndPointWithUri(link);
                         }
                     }
                     else
@@ -160,53 +158,44 @@ namespace CheckLinkCLI2
 
                         else
                         {
-                            if (File.Exists(file))
+                            if (File.Exists(file) || Directory.Exists(file))
                             {
-                                Console.Write("===|Reading file : ");
-                                Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.WriteLine($"{file}|===\n");
-                                Console.ResetColor();
                                 var links = FileReader.ExtractLinks(file);
-                                links.Sort();
-                                foreach (var link in links)
+                                WebLinkChecker wlc = new WebLinkChecker();
+
+                                if (Directory.Exists(file))
                                 {
-                                    string flag = LinkChecker.SetSupportFlag(args.Last<string>()) == null ? "--all" : LinkChecker.SetSupportFlag(args.Last<string>());
-                                    LinkChecker.GetAllEndPointWithUri(link, flag);
+                                    Console.Write("===|Reading all files in directory : ");
+                                    Console.ForegroundColor = ConsoleColor.Cyan;
+                                    Console.WriteLine($"{file}|===\n");
+                                    Console.ResetColor();
+                                    foreach (string fileInDir in Directory.GetFiles(file))
+                                    {
+                                        links = FileReader.ExtractLinks(fileInDir);
+                                        Console.Write("===|Reading file : ");
+                                        Console.ForegroundColor = ConsoleColor.Cyan;
+                                        Console.WriteLine($"{fileInDir}|===\n");
+                                        Console.ResetColor();
+                                        wlc.DisplayLinks(links, args);
+                                    }
                                 }
-
-                                Console.WriteLine("\n");
-                            }
-
-                            else if (Directory.Exists(file))
-                            {
-                                Console.Write("===|Reading all files in directory : ");
-                                Console.ForegroundColor = ConsoleColor.Cyan;
-                                Console.WriteLine($"{file}|===\n");
-                                Console.ResetColor();
-                                string[] files = Directory.GetFiles(file);
-                                foreach (string fileInDir in files)
+                                else
                                 {
-                                    var links = FileReader.ExtractLinks(fileInDir);
                                     Console.Write("===|Reading file : ");
                                     Console.ForegroundColor = ConsoleColor.Cyan;
-                                    Console.WriteLine($"{fileInDir}|===\n");
+                                    Console.WriteLine($"{file}|===\n");
                                     Console.ResetColor();
-                                    links.Sort();
-                                    foreach (var link in links)
-                                    {
-                                        string flag = LinkChecker.SetSupportFlag(args.Last<string>()) == null ? "--all" : LinkChecker.SetSupportFlag(args.Last<string>());
-                                        LinkChecker.GetAllEndPointWithUri(link, flag);
-                                    }
+                                    wlc.DisplayLinks(links, args);
 
-                                    Console.WriteLine("\n");
                                 }
                             }
+
 
                             else
                                 Console.WriteLine("No such file or url exist...\n");
                         }
                     }
-                    Console.WriteLine($"Good links: {WebLinkChecker.goodCounter} | Bad links: {WebLinkChecker.badCounter} | Unknown links: {WebLinkChecker.unknownCounter}");
+                    Console.WriteLine($"Good links: {WebLinkChecker.GetGoodCounter()} | Bad links: {WebLinkChecker.GetBadCounter()} | Unknown links: {WebLinkChecker.GetUnknownCounter()}");
                 }
             }
         }
