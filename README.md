@@ -36,6 +36,11 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 - This feature requires an **ignore file** with url patterns. It can only include comments (starts with `#`) and/or url patterns that starts with `http://` or `https://`. 
 - Type `.\CheckLinkCLI2.exe` + `C:\Directory\ignorePatternFileName` + `C:\Directory\filename` + `-ignore` or `-i` or `\i`
 
+### Reading JSON API
+
+- This feature requires you to run the backend of (Telescope)[https://github.com/Seneca-CDOT/telescope]. It will check the first 10 posts and return whether the httpstatus to the console. 
+- Type `.\CheckLinkCLI2.exe` + telescope
+
 
 ## How to run the application in Visual Studio 2019/2017
 
