@@ -1,0 +1,15 @@
+https://wiki.cdot.senecacollege.ca/w/api.php?action=rsd
+http://zenit.senecac.on.ca/~chris.tyler/planet/
+http://www.wordpress.com
+www.google.ca
+#sddsfsdf
+http://s9y.org
+#sfgdfgdfhgdghdgh
+http://en.wikipedia.org/wiki/RSS_(file_format)
+http://en.wikipedia.org/wiki/RSS_(file_format)
+http://en.wikipedia.org/wiki/Hackergotchi
+http://s-aleinikov.blog.ca/feed/atom/posts/
+http://ejtorre.blog.ca/feed/rss2/posts/
+http://rickeyre.ca/open-source-feed.xml
+http://tea.cesaroliveira.net/archives/tag/seneca/feed
+http://blog.marcussaad.com/?feed=rss2&amp;lang=en

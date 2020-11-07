@@ -35,8 +35,10 @@ namespace CheckLinkCLI2
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static readonly List<string> json = new List<string>() { "-j", @"\j", "--json" };
         public static readonly List<string> ignore = new List<string>() { "--ignore", "-i", @"\i" };
+        public static readonly List<string> api = new List<string>() { "telescope" };
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
+            {"api",api },
             {"version",version },
         };
 
@@ -44,7 +46,7 @@ namespace CheckLinkCLI2
         {
             FileReader FileReader = new FileReader();
             WebLinkChecker LinkChecker = new WebLinkChecker();
-
+            JsonApi jsonApi = new JsonApi();
             #region Dev env
             if (IsDebug())
             {
@@ -76,6 +78,11 @@ namespace CheckLinkCLI2
                         }
                     }
 
+                    else if (api.Contains(args.First<string>()))
+                    {
+                        jsonApi.ParseLinks();
+                    }
+
                     else
                         Console.WriteLine($"File {input} does not exist");
                 }
@@ -89,6 +96,12 @@ namespace CheckLinkCLI2
                     Console.WriteLine("Please provide file name with links as an argument...");
                     Console.WriteLine("For example: CheckLinksCLI2 file_name.txt");
 
+                }
+
+                else if (api.Contains(args.First<string>()))
+                {
+                    Console.WriteLine($"===|Checking posts from : Telescope|===");
+                    jsonApi.ParseLinks();
                 }
 
                 #region Command line options
