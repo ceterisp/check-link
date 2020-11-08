@@ -80,7 +80,7 @@ namespace CheckLinkCLI2
 
                     else if (api.Contains(args.First<string>()))
                     {
-                        jsonApi.ParseLinks();
+                        jsonApi.ParseLinksFromJson();
                     }
 
                     else
@@ -101,7 +101,7 @@ namespace CheckLinkCLI2
                 else if (api.Contains(args.First<string>()))
                 {
                     Console.WriteLine($"===|Checking posts from : Telescope|===");
-                    jsonApi.ParseLinks();
+                    jsonApi.ParseLinksFromJson();
                 }
 
                 #region Command line options
