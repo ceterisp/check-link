@@ -22,7 +22,7 @@ namespace CheckLinkCLI2
 
         #region variables to test
 
-        private static readonly string linkFile = @"absolutePathToTxtFile.txt";
+        //private static readonly string linkFile = @"absolutePathToTxtFile.txt";
         private static readonly string htmlFile = @"D:\Documents\Seneca_College\OSD600\check-link2\check-link\CheckLinkCLI2\CheckLinkCLI2\index2.html";
 
         #endregion variables to test

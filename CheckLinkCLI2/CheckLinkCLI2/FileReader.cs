@@ -16,7 +16,6 @@ namespace CheckLinkCLI2
                 //read the file line by line
                 using (StreamReader sr = new StreamReader(file))
                 {
-                    int counter = 0;
                     while (!sr.EndOfStream)
                     {
                         if (IsHtmlFile(file))

@@ -178,7 +178,7 @@ namespace CheckLinkCLI2
                     link.Add(l);
                     Utility.ProgressBar(count, totalFiles);
                 }
-                catch (Exception e)
+                catch (Exception)
                 {
                     var l = new Link()
                     {
