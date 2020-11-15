@@ -53,4 +53,4 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 ## How to contribute to Check-Link
 
-- COMING SOON!
+- You are always welcome to contribute to Check-Link, see the [Contributing documentation](CONTRIBUTING.md) 
