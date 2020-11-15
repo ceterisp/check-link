@@ -29,6 +29,15 @@ Check-Link requires you to install .NET in order to run the stand-alone applicat
 - CodeMaid will help you to format the code according to PR accepted standards.
 - Before you are ready to code, enable automatic cleanup on save in VS by `Ctrl`+`M,'`
 
+
+#### dotnet-format
+- Linux uses can take advantage of [dotnet-format](https://github.com/dotnet/format) to run and format the code using the CLI for PR acceptable standards.
+- Find and run the bash script named `formatCode.sh` in scripts folder, to format the code. 
+
+#### Resharper (Trial)
+- This project also uses Resharper in VS, as well as in the CLI (Install [Resharper](https://www.jetbrains.com/help/resharper/ReSharper_Command_Line_Tools.html)).
+- Find and run the bash script named `runLint.sh` in scripts folder. It will generate a txt file in xml format with description information about lints in the code.
+
 ## How to run the application in Visual Studio 2019/2017
 
 - Click the green 'Code' dropdown button and select 'Download Zip'
