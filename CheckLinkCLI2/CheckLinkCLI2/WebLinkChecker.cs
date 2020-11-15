@@ -1,13 +1,11 @@
-﻿using System;
+﻿using CheckLinkCLI2.General;
+using CheckLinkCLI2.Models;
+using System;
 using System.Collections.Generic;
-using System.Text;
+using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Threading.Tasks;
-using CheckLinkCLI2.Models;
-using CheckLinkCLI2.General;
-using System.Net.NetworkInformation;
-using System.Linq;
 
 namespace CheckLinkCLI2
 {
@@ -18,14 +16,6 @@ namespace CheckLinkCLI2
         private readonly List<string> supportFlags = new List<string>() { "--all", "--good", "--bad" };
 
         /// <summary>
-        /// Returns total number of good links
-        /// </summary>
-        /// <returns></returns>
-        public static long GetGoodCounter()
-        {
-            return goodCounter;
-        }
-        /// <summary>
         /// Returns total number of bad links
         /// </summary>
         /// <returns></returns>
@@ -33,6 +23,16 @@ namespace CheckLinkCLI2
         {
             return badCounter;
         }
+
+        /// <summary>
+        /// Returns total number of good links
+        /// </summary>
+        /// <returns></returns>
+        public static long GetGoodCounter()
+        {
+            return goodCounter;
+        }
+
         /// <summary>
         /// Returns total number of unknown links
         /// </summary>
@@ -40,6 +40,22 @@ namespace CheckLinkCLI2
         public static long GetUnknownCounter()
         {
             return unknownCounter;
+        }
+
+        /// <summary>
+        /// Prints each link, status and the code to the console
+        /// </summary>
+        /// <param name="links"> The links after parsed from the file</param>
+        /// <param name="args">The file path</param>
+        public void DisplayLinks(List<string> links, string[] args)
+        {
+            links.Sort();
+            foreach (var link in links)
+            {
+                string flag = SetSupportFlag(args.Last<string>()) ?? "--all";
+                GetAllEndPointWithUri(link, flag);
+            }
+            Console.WriteLine("\n");
         }
 
         /// <summary>
@@ -127,19 +143,6 @@ namespace CheckLinkCLI2
         }
 
         /// <summary>
-        /// Returns Support Flag value for JSON 
-        /// </summary>
-        /// <param name="flag"></param>
-        /// <returns></returns>
-        public string SetSupportFlag(string flag)
-        {
-            if (supportFlags.Contains(flag))
-                return supportFlags[supportFlags.IndexOf(flag)];
-            else
-                return supportFlags[0];
-        }
-
-        /// <summary>
         /// Returns a List of Link objects and its properties
         /// </summary>
         /// <param name="url"></param>
@@ -192,21 +195,18 @@ namespace CheckLinkCLI2
 
             return link;
         }
-        /// <summary>
-        /// Prints each link, status and the code to the console
-        /// </summary>
-        /// <param name="links"> The links after parsed from the file</param>
-        /// <param name="args">The file path</param>
-        public void DisplayLinks(List<string> links, string[] args)
-        {
-            links.Sort();
-            foreach (var link in links)
-            {
-                string flag = SetSupportFlag(args.Last<string>()) ?? "--all";
-                GetAllEndPointWithUri(link, flag);
-            }
-            Console.WriteLine("\n");
-        }
 
+        /// <summary>
+        /// Returns Support Flag value for JSON
+        /// </summary>
+        /// <param name="flag"></param>
+        /// <returns></returns>
+        public string SetSupportFlag(string flag)
+        {
+            if (supportFlags.Contains(flag))
+                return supportFlags[supportFlags.IndexOf(flag)];
+            else
+                return supportFlags[0];
+        }
     }
 }

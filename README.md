@@ -38,17 +38,8 @@ Command-Line Interface (CLI) application to check if a web link is active or bro
 
 ### Reading JSON API
 
-- This feature requires you to run the backend of (Telescope)[https://github.com/Seneca-CDOT/telescope]. It will check the first 10 posts and return whether the httpstatus to the console. 
+- This feature requires you to run the backend of [Telescope](https://github.com/Seneca-CDOT/telescope). It will check the first 10 posts and return whether the httpstatus to the console. 
 - Type `.\CheckLinkCLI2.exe` + `telescope`
-
-
-## How to run the application in Visual Studio 2019/2017
-
-- Click the green 'Code' dropdown button and select 'Download Zip'
-- Extract the zip file and nagivate to the solution file CheckLinkCLI2.sln
-- Open the solution using Visual Studio and build the application 
-- Change the string variable `linkfile` and `htmlfile` to your .txt and .html file paths(absolute path) accordingly 
-- Press `Ctrl` + `F5` and run the application
 
 
 ## How to contribute to Check-Link

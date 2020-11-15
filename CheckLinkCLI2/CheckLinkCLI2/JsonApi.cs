@@ -1,11 +1,7 @@
 ﻿using CheckLinkCLI2.Models;
 using System;
 using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Net;
-using System.Runtime.InteropServices;
-using System.Text;
 using System.Text.Json;
 
 namespace CheckLinkCLI2
@@ -13,8 +9,10 @@ namespace CheckLinkCLI2
     public class JsonApi
     {
         private List<string> extractedLinks = new List<string>();
+
         //private Telescope telescope = new Telescope();
         private const string telescopePostsUrl = @"http://localhost:3000/posts";
+
         private WebLinkChecker webChecker = new WebLinkChecker();
 
         /// <summary>
@@ -41,7 +39,6 @@ namespace CheckLinkCLI2
 
                 for (int i = 0; i < 10; i++)
                 {
-
                     jsonlinks.Add($"{telescopePostsUrl}/{posts[i].Id}");
                 }
 
@@ -75,23 +72,19 @@ namespace CheckLinkCLI2
 
             try
             {
-                foreach (var i in htmlcontent.Replace("\\",string.Empty).Split("\""))
+                foreach (var i in htmlcontent.Replace("\\", string.Empty).Split("\""))
                 {
                     if (i.StartsWith("http"))
                     {
-                        string trimmedLink = i.Replace(@"\\",string.Empty);
+                        string trimmedLink = i.Replace(@"\\", string.Empty);
                         extractedLinks.Add(trimmedLink);
                     }
                 }
             }
             catch (Exception e)
             {
-
                 Console.WriteLine(e);
             }
-
-
         }
-
     }
 }

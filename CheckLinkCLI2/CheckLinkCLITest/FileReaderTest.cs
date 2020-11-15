@@ -1,8 +1,6 @@
 using CheckLinkCLI2;
-using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Runtime.CompilerServices;
 using Xunit;
 
 namespace CheckLinkCLITest
@@ -25,9 +23,8 @@ namespace CheckLinkCLITest
             foreach (var link in links)
             {
                 linkInLine = sr.ReadLine();
-                Assert.Equal(linkInLine , link);
+                Assert.Equal(linkInLine, link);
             }
-
         }
     }
 }

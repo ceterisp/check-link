@@ -1,10 +1,7 @@
-﻿using CheckLinkCLI2.Models;
-using Newtonsoft.Json;
+﻿using Newtonsoft.Json;
 using System;
 using System.Collections.Generic;
 using System.IO;
-using System.Linq.Expressions;
-using System.Text;
 
 namespace CheckLinkCLI2
 {
@@ -47,24 +44,51 @@ namespace CheckLinkCLI2
             return links;
         }
 
-        private bool IsCommandLineOption(List<string> commandLineOption, string fileArg)
+        public bool IsValidIgnorePattern(string file)
         {
-            foreach (var clo in commandLineOption)
+            bool isValid = false;
+            int validPattern = 0;
+            int invalidPattern = 0;
+
+            var lines = ExtractLinks(file);
+
+            foreach (var line in lines)
             {
-                if (fileArg.Contains(clo))
-                    return true;
+                if (line.StartsWith("#") || line.StartsWith("http://") || line.StartsWith("https://"))
+                    validPattern++;
+                else
+                    invalidPattern++;
             }
-            return false;
+            if (invalidPattern > 0)
+                isValid = false;
+            else
+                isValid = true;
+            return isValid;
         }
 
-        private bool IsHtmlFile(string html)
+        public List<string> ReadIgnorePatterns(string file)
         {
-            if (html.Contains(".html"))
-                return true;
+            List<string> ignorePatterns = new List<String>();
+            var lines = ExtractLinks(file);
+            if (IsValidIgnorePattern(file))
+            {
+                foreach (string line in lines)
+                {
+                    if (line.StartsWith("http://") || line.StartsWith("https://"))
+                    {
+                        ignorePatterns.Add(line);
+                    }
+                }
+            }
+            else
+            {
+                Console.WriteLine("The ignore pattern file is invalid. A ignore pattern file should not include anything other than a comment(#) or a URL(http://, https://).");
+                System.Environment.Exit(1);
+            }
 
-            return false;
-
+            return ignorePatterns;
         }
+
         /// <summary>
         /// Receives file and writes it to a JSON file
         /// </summary>
@@ -82,49 +106,22 @@ namespace CheckLinkCLI2
             }
         }
 
-        public bool IsValidIgnorePattern(string file)
+        private bool IsCommandLineOption(List<string> commandLineOption, string fileArg)
         {
-            bool isValid = false;
-            int validPattern = 0;
-            int invalidPattern = 0;
-            
-            var lines = ExtractLinks(file);
-            
-                foreach(var line in lines)
-                {
-                    if(line.StartsWith("#") || line.StartsWith("http://") || line.StartsWith("https://"))
-                        validPattern++;
-                    else
-                        invalidPattern++;
-                }
-                if(invalidPattern > 0)
-                    isValid = false;
-                else
-                    isValid = true;
-            return isValid;
+            foreach (var clo in commandLineOption)
+            {
+                if (fileArg.Contains(clo))
+                    return true;
+            }
+            return false;
         }
 
-        public List<string> ReadIgnorePatterns(string file)
+        private bool IsHtmlFile(string html)
         {
-            List<string> ignorePatterns = new List<String>();
-            var lines = ExtractLinks(file);
-            if(IsValidIgnorePattern(file))
-            {
-                foreach(string line in lines){
-                    if(line.StartsWith("http://") || line.StartsWith("https://"))
-                    {
-                        ignorePatterns.Add(line);
-                    }
-                }
-            }
-            else
-            {
-                Console.WriteLine("The ignore pattern file is invalid. A ignore pattern file should not include anything other than a comment(#) or a URL(http://, https://).");
-                System.Environment.Exit(1);
-            }   
-           
-            return ignorePatterns;
-            
+            if (html.Contains(".html"))
+                return true;
+
+            return false;
         }
     }
 }

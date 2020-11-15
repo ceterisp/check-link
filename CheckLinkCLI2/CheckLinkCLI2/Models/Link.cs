@@ -1,7 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel.DataAnnotations;
-using System.Text;
+﻿using System.ComponentModel.DataAnnotations;
 
 namespace CheckLinkCLI2.Models
 {
@@ -9,8 +6,9 @@ namespace CheckLinkCLI2.Models
     {
         [Key]
         public int Id { get; set; }
-        public string Url { get; set; }
-        public int? StatusCode { get; set; }
+
         public string LinkStatus { get; set; }
+        public int? StatusCode { get; set; }
+        public string Url { get; set; }
     }
 }

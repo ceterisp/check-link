@@ -1,21 +1,14 @@
 ﻿using System;
-using System.Collections;
 using System.Collections.Generic;
-using System.Security.Cryptography.X509Certificates;
-using System.Threading;
-using System.Collections;
-using System.Collections.Concurrent;
-using System.Net;
-using System.Net.Http;
-using System.Threading.Tasks;
-using System.Linq;
 using System.IO;
+using System.Linq;
 
 namespace CheckLinkCLI2
 {
     public class Program
     {
         #region Debug or Release
+
         public static bool IsDebug()
         {
 #if (DEBUG)
@@ -25,17 +18,20 @@ namespace CheckLinkCLI2
 #endif
         }
 
-        #endregion
+        #endregion Debug or Release
 
         #region variables to test
+
         private static readonly string linkFile = @"absolutePathToTxtFile.txt";
         private static readonly string htmlFile = @"D:\Documents\Seneca_College\OSD600\check-link2\check-link\CheckLinkCLI2\CheckLinkCLI2\index2.html";
-        #endregion
+
+        #endregion variables to test
 
         public static readonly List<string> version = new List<string>() { "v", "-v", "version", "--version" };
         public static readonly List<string> json = new List<string>() { "-j", @"\j", "--json" };
         public static readonly List<string> ignore = new List<string>() { "--ignore", "-i", @"\i" };
         public static readonly List<string> api = new List<string>() { "telescope" };
+
         public static Dictionary<string, List<string>> CommandLineOptions = new Dictionary<string, List<string>>()
         {
             {"api",api },
@@ -47,10 +43,11 @@ namespace CheckLinkCLI2
             FileReader FileReader = new FileReader();
             WebLinkChecker LinkChecker = new WebLinkChecker();
             JsonApi jsonApi = new JsonApi();
+
             #region Dev env
+
             if (IsDebug())
             {
-
                 foreach (var input in args)
                 {
                     if (!File.Exists(input) && input.Contains(':') && !(input.EndsWith(".txt") || input.EndsWith(".html")) && input.StartsWith("http"))
@@ -58,7 +55,6 @@ namespace CheckLinkCLI2
                         LinkChecker.GetAllEndPointWithUri(input);
                         Console.WriteLine("\n");
                     }
-
                     else if (File.Exists(input))
                     {
                         if (!json.Contains(args.Last<string>()))
@@ -77,17 +73,16 @@ namespace CheckLinkCLI2
                             break;
                         }
                     }
-
                     else if (api.Contains(args.First<string>()))
                     {
                         jsonApi.ParseLinksFromJson();
                     }
-
                     else
                         Console.WriteLine($"File {input} does not exist");
                 }
             }
-            #endregion
+
+            #endregion Dev env
 
             else
             {
@@ -95,9 +90,7 @@ namespace CheckLinkCLI2
                 {
                     Console.WriteLine("Please provide file name with links as an argument...");
                     Console.WriteLine("For example: CheckLinksCLI2 file_name.txt");
-
                 }
-
                 else if (api.Contains(args.First<string>()))
                 {
                     Console.WriteLine($"===|Checking posts from : Telescope|===");
@@ -105,12 +98,14 @@ namespace CheckLinkCLI2
                 }
 
                 #region Command line options
+
                 else if (version.Contains(args[0]))
                 {
                     Console.WriteLine("Application Name: CheckLinkCLI2 \n" +
                         "Release: 0.1");
                 }
-                #endregion
+
+                #endregion Command line options
 
                 else if (ignore.Contains(args.Last<string>()))
                 {
@@ -140,7 +135,6 @@ namespace CheckLinkCLI2
                         Console.WriteLine("For example: CheckLinksCLI2 ignore_pattern.txt file_name.txt --ignore");
                     }
                 }
-
                 else
                 {
                     foreach (var file in args)
@@ -151,7 +145,6 @@ namespace CheckLinkCLI2
                                 "Please lookout for this feature in a future release\n" +
                                 "Thank you for using CheckLinkCLI2!");
                         }
-
                         else if (!File.Exists(file) && file.Contains(':') && !(file.EndsWith(".txt") || file.EndsWith(".html")) && file.StartsWith("http"))
                         {
                             LinkChecker.GetAllEndPointWithUri(file);
@@ -168,7 +161,6 @@ namespace CheckLinkCLI2
                             }
                             break;
                         }
-
                         else
                         {
                             if (File.Exists(file) || Directory.Exists(file))
@@ -199,11 +191,8 @@ namespace CheckLinkCLI2
                                     Console.WriteLine($"{file}|===\n");
                                     Console.ResetColor();
                                     wlc.DisplayLinks(links, args);
-
                                 }
                             }
-
-
                             else
                                 Console.WriteLine("No such file or url exist...\n");
                         }

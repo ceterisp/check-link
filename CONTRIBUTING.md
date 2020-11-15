@@ -21,8 +21,22 @@ Check-Link requires you to install .NET in order to run the stand-alone applicat
 
 ## Technologies for developers
 
-It would be better to use an [Visual Studio IDE](https://visualstudio.microsoft.com/downloads/) to make your life a lot easier. 
-The NuGet package manager can install (restore) the packages required for this Check-Link to run.
+- It would be better to use an [Visual Studio IDE](https://visualstudio.microsoft.com/downloads/) to make your life a lot easier. 
+- The NuGet package manager can install (restore) the packages required for this Check-Link to run.
+
+#### CodeMaid
+- This project uses a code styler and formatter known as CodeMaid (installed with NuGet packages).
+- CodeMaid will help you to format the code according to PR accepted standards.
+- Before you are ready to code, enable automatic cleanup on save in VS by `Ctrl`+`M,'`
+
+## How to run the application in Visual Studio 2019/2017
+
+- Click the green 'Code' dropdown button and select 'Download Zip'
+- Extract the zip file and nagivate to the solution file CheckLinkCLI2.sln
+- Open the solution using Visual Studio and build the application 
+- Change the string variable `linkfile` and `htmlfile` to your .txt and .html file paths(absolute path) accordingly 
+- Press `Ctrl` + `F5` and run the application
+
 
 ## Workflow in Git and GitHub
 
