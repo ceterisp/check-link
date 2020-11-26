@@ -5,7 +5,7 @@ VisualStudioVersion = 16.0.30413.136
 MinimumVisualStudioVersion = 10.0.40219.1
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckLinkCLI2", "CheckLinkCLI2\CheckLinkCLI2.csproj", "{B1C0E475-178C-4BD6-B3EA-430292C455C8}"
 EndProject
-Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "CheckLinkCLITest", "CheckLinkCLITest\CheckLinkCLITest.csproj", "{7231F91F-16C0-450F-8217-999752061517}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CheckLinkCLI2.Tests", "CheckLinkCLI2.Tests\CheckLinkCLI2.Tests.csproj", "{BAE48B7A-258F-4875-92FE-448EDF78708A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -20,12 +20,12 @@ Global
 		{B1C0E475-178C-4BD6-B3EA-430292C455C8}.Deploy|Any CPU.Build.0 = Release|Any CPU
 		{B1C0E475-178C-4BD6-B3EA-430292C455C8}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{B1C0E475-178C-4BD6-B3EA-430292C455C8}.Release|Any CPU.Build.0 = Release|Any CPU
-		{7231F91F-16C0-450F-8217-999752061517}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{7231F91F-16C0-450F-8217-999752061517}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{7231F91F-16C0-450F-8217-999752061517}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
-		{7231F91F-16C0-450F-8217-999752061517}.Deploy|Any CPU.Build.0 = Debug|Any CPU
-		{7231F91F-16C0-450F-8217-999752061517}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{7231F91F-16C0-450F-8217-999752061517}.Release|Any CPU.Build.0 = Release|Any CPU
+		{BAE48B7A-258F-4875-92FE-448EDF78708A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE48B7A-258F-4875-92FE-448EDF78708A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{BAE48B7A-258F-4875-92FE-448EDF78708A}.Deploy|Any CPU.ActiveCfg = Debug|Any CPU
+		{BAE48B7A-258F-4875-92FE-448EDF78708A}.Deploy|Any CPU.Build.0 = Debug|Any CPU
+		{BAE48B7A-258F-4875-92FE-448EDF78708A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{BAE48B7A-258F-4875-92FE-448EDF78708A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

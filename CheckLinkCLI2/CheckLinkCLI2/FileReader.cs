@@ -2,11 +2,17 @@
 using System;
 using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 
 namespace CheckLinkCLI2
 {
     public class FileReader
     {
+        /// <summary>
+        /// Extracks links from a .txt and .html file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public List<string> ExtractLinks(string file)
         {
             List<string> links = new List<string>();
@@ -22,14 +28,10 @@ namespace CheckLinkCLI2
                         {
                             List<string> htmlLine = new List<string>();
                             htmlLine.Add(sr.ReadLine());
-                            foreach (var link in htmlLine)
-                            {
-                                foreach (var i in link.Split("\""))
-                                {
-                                    if (i.StartsWith("http"))
-                                        links.Add(i);
-                                }
-                            }
+                            links.AddRange(from link in htmlLine
+                                           from i in link.Split("\"")
+                                           where i.StartsWith("http")
+                                           select i);
                         }
                         else
                             links.Add(sr.ReadLine());
@@ -43,7 +45,7 @@ namespace CheckLinkCLI2
             return links;
         }
 
-        public bool IsValidIgnorePattern(string file)
+        private bool IsValidIgnorePattern(string file)
         {
             bool isValid = false;
             int validPattern = 0;
@@ -58,26 +60,27 @@ namespace CheckLinkCLI2
                 else
                     invalidPattern++;
             }
-            if (invalidPattern > 0)
-                isValid = false;
-            else
-                isValid = true;
+
+            isValid = invalidPattern <= 0;
+            //if (invalidPattern > 0)
+            //    isValid = false;
+            //else
+            //    isValid = true;
             return isValid;
         }
 
+        /// <summary>
+        /// Ignores links in a file
+        /// </summary>
+        /// <param name="file"></param>
+        /// <returns></returns>
         public List<string> ReadIgnorePatterns(string file)
         {
             List<string> ignorePatterns = new List<String>();
             var lines = ExtractLinks(file);
             if (IsValidIgnorePattern(file))
             {
-                foreach (string line in lines)
-                {
-                    if (line.StartsWith("http://") || line.StartsWith("https://"))
-                    {
-                        ignorePatterns.Add(line);
-                    }
-                }
+                ignorePatterns.AddRange(lines.Where(line => line.StartsWith("http://") || line.StartsWith("https://")));
             }
             else
             {
@@ -94,7 +97,7 @@ namespace CheckLinkCLI2
         /// <param name="url"></param>
         public void WriteToJSON(string file)
         {
-            const string fileName = @"\CheckLinkCLI2JsonOutput.json";
+            string fileName = @$"{Directory.GetCurrentDirectory()}\CheckLinkCLI2JsonOutput.json";
             WebLinkChecker lc = new WebLinkChecker();
             var link = lc.GetLinkDetails(file);
             var jsonToWrite = JsonConvert.SerializeObject(link, Formatting.Indented);

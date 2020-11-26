@@ -72,10 +72,7 @@ namespace CheckLinkCLI2
             try
             {
                 int count = 0;
-                Task<HttpResponseMessage> httpResponse = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, new Uri(url)));
-                HttpResponseMessage httpResponseMessage = httpResponse.Result;
-                HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
-                statusCode = (int)httpStatusCode;
+                statusCode = GetHttpStatusCode(httpClient, url);
                 httpClient.Dispose();
                 Link link = new Link();
                 if (statusCode == 200 && supportFlag != "--bad")
@@ -143,9 +140,23 @@ namespace CheckLinkCLI2
         }
 
         /// <summary>
+        /// Returns the Http status code of respective url
+        /// </summary>
+        /// <param name="httpClient"></param>
+        /// <param name="url"></param>
+        /// <returns></returns>
+        public int GetHttpStatusCode(HttpClient httpClient, string url)
+        {
+            Task<HttpResponseMessage> httpResponse = httpClient.SendAsync(new HttpRequestMessage(HttpMethod.Head, new Uri(url)));
+            HttpResponseMessage httpResponseMessage = httpResponse.Result;
+            HttpStatusCode httpStatusCode = httpResponseMessage.StatusCode;
+            return (int)httpStatusCode;
+        }
+
+        /// <summary>
         /// Returns a List of Link objects and its properties
         /// </summary>
-        /// <param name="url"></param>
+        /// <param name="file">The file path that needs to be parsed</param>
         /// <returns></returns>
         public List<Link> GetLinkDetails(string file)
         {
@@ -197,9 +208,9 @@ namespace CheckLinkCLI2
         }
 
         /// <summary>
-        /// Returns Support Flag value for JSON
+        /// Returns Support Flag value for filtering good or bad links to the console
         /// </summary>
-        /// <param name="flag"></param>
+        /// <param name="flag">Takes any one of the three specific strings</param>
         /// <returns></returns>
         public string SetSupportFlag(string flag)
         {

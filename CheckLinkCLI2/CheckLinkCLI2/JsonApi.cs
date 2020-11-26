@@ -8,12 +8,13 @@ namespace CheckLinkCLI2
 {
     public class JsonApi
     {
-        private List<string> extractedLinks = new List<string>();
+        private List<string> _extractedLinks = new List<string>();
 
         //private Telescope telescope = new Telescope();
-        private const string telescopePostsUrl = @"http://localhost:3000/posts";
+        //private const string telescopePostsUrl = @"http://localhost:3000/posts";
+        private const string telescopePostsUrl = @"https://telescope.cdot.systems/posts";
 
-        private WebLinkChecker webChecker = new WebLinkChecker();
+        private WebLinkChecker _webChecker = new WebLinkChecker();
 
         /// <summary>
         /// Parses the links from the JSON, extracts the link and returns the http statuses to the console
@@ -37,19 +38,41 @@ namespace CheckLinkCLI2
                 List<string> jsonlinks = new List<string>();
                 List<string> links = new List<string>();
 
-                for (int i = 0; i < 10; i++)
+                foreach (var post in posts)
                 {
-                    jsonlinks.Add($"{telescopePostsUrl}/{posts[i].Id}");
+                    jsonlinks.Add($"{telescopePostsUrl}/{post.Id}");
                 }
 
-                foreach (var link in jsonlinks)
+                if (!IsHtmlFile(jsonlinks[0]))
                 {
-                    ExtractLinksFromHtml(link);
-                }
+                    //List<TelescopePosts> telescopePost = new List<TelescopePosts>();
+                    //List<TelescopePosts> telescopePosts = JsonSerializer.Deserialize<List<TelescopePosts>>(jsonlinks);
 
-                foreach (var link in extractedLinks)
+                    foreach (var jsonlink in jsonlinks)
+                    {
+                        using (var wc = new WebClient())
+                        {
+                            content = wc.DownloadString(jsonlink);
+                        }
+
+                        TelescopePosts telescopePosts = JsonSerializer.Deserialize<TelescopePosts>(content);
+                        ExtractLinksFromHtml(telescopePosts.Html);
+                    }
+                }
+                else
                 {
-                    webChecker.GetAllEndPointWithUri(link);
+                    if (_extractedLinks.Count == 0)
+                    {
+                        foreach (var link in jsonlinks)
+                        {
+                            ExtractLinksFromHtml(link);
+                        }
+                    }
+
+                    foreach (var link in _extractedLinks)
+                    {
+                        _webChecker.GetAllEndPointWithUri(link);
+                    }
                 }
             }
             catch (Exception e)
@@ -64,10 +87,13 @@ namespace CheckLinkCLI2
         /// <param name="htmllink"></param>
         private void ExtractLinksFromHtml(string htmllink)
         {
-            string htmlcontent = string.Empty;
-            using (var wc = new WebClient())
+            string htmlcontent = htmllink;
+            if (!htmllink.StartsWith("<"))
             {
-                htmlcontent = wc.DownloadString(htmllink);
+                using (var wc = new WebClient())
+                {
+                    htmlcontent = wc.DownloadString(htmllink);
+                }
             }
 
             try
@@ -77,7 +103,7 @@ namespace CheckLinkCLI2
                     if (i.StartsWith("http"))
                     {
                         string trimmedLink = i.Replace(@"\\", string.Empty);
-                        extractedLinks.Add(trimmedLink);
+                        _extractedLinks.Add(trimmedLink);
                     }
                 }
             }
@@ -85,6 +111,16 @@ namespace CheckLinkCLI2
             {
                 Console.WriteLine(e);
             }
+        }
+
+        private bool IsJsonFile(string json)
+        {
+            return json.Contains(".json") ? true : false;
+        }
+
+        private bool IsHtmlFile(string html)
+        {
+            return html.StartsWith("<!DOCTYPE html>") ? true : false;
         }
     }
 }
