@@ -1,0 +1,8 @@
+{
+  "profiles": {
+    "CheckLinkCLI2": {
+      "commandName": "Project",
+      "commandLineArgs": "D:\\Documents\\Seneca_College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLI2\\ignore.txt D:\\Documents\\Seneca_College\\OSD600\\check-link2\\check-link\\CheckLinkCLI2\\CheckLinkCLI2.Tests\\assets_test\\urls.html -i"
+    }
+  }
+}
