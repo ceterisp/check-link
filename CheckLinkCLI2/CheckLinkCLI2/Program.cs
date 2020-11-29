@@ -114,6 +114,7 @@ namespace CheckLinkCLI2
                         var ignorePatternFile = args[0];
                         var sourceFile = args[1];
                         var patterns = FileReader.ReadIgnorePatterns(ignorePatternFile);
+                        if (patterns.Contains(" ")) Console.WriteLine(patterns); System.Environment.Exit(1);
                         var links = FileReader.ExtractLinks(sourceFile);
                         var allowedLinks = links.Where(l => !patterns.Any(p => l.StartsWith(p)));
                         Console.Write("===|Reading file : ");

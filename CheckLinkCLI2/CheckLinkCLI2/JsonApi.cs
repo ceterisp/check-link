@@ -45,9 +45,6 @@ namespace CheckLinkCLI2
 
                 if (!IsHtmlFile(jsonlinks[0]))
                 {
-                    //List<TelescopePosts> telescopePost = new List<TelescopePosts>();
-                    //List<TelescopePosts> telescopePosts = JsonSerializer.Deserialize<List<TelescopePosts>>(jsonlinks);
-
                     foreach (var jsonlink in jsonlinks)
                     {
                         using (var wc = new WebClient())
