@@ -10,7 +10,7 @@ namespace CheckLinkCLI2.Tests
 {
     public class WebLinkCheckerTest
     {
-        private readonly string _txtFile = @$"{Directory.GetCurrentDirectory()}\..\..\..\assets_test\urls.txt";
+        private readonly string _txtFile = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/urls.txt";
 
         private readonly WebLinkChecker wlc = new WebLinkChecker();
 
