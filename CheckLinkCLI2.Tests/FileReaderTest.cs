@@ -6,13 +6,13 @@ namespace CheckLinkCLI2.Tests
 {
     public class FileReaderTest
     {
-        private readonly string _txtFile = @$"{Directory.GetCurrentDirectory()}\..\..\..\assets_test\urls.txt";
-        private readonly string _htmlFile = @$"{Directory.GetCurrentDirectory()}\..\..\..\assets_test\urls.html";
-        private readonly string _noFile = @$"{Directory.GetCurrentDirectory()}\..\..\..\assets_test\nofile.txt";
-        private readonly string _ignoreFile = @$"{Directory.GetCurrentDirectory()}\..\..\..\assets_test\ignore_test.txt";
-        private readonly string _ignoreFileShould = @$"{Directory.GetCurrentDirectory()}\..\..\..\assets_test\ignore_should.txt";
-        private readonly string _jsonOutput = @$"{Directory.GetCurrentDirectory()}\..\..\..\obj\Debug\netcoreapp3.1\CheckLinkCLI2JsonOutput_should.json";
-        private readonly string _jsonOutputShould = @$"{Directory.GetCurrentDirectory()}\..\..\..\assets_test\CheckLinkCLI2JsonOutput_should.json";
+        private readonly string _txtFile = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/urls.txt";
+        private readonly string _htmlFile = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/urls.html";
+        private readonly string _noFile = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/nofile.txt";
+        private readonly string _ignoreFile = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/ignore_test.txt";
+        private readonly string _ignoreFileShould = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/ignore_should.txt";
+        private readonly string _jsonOutput = @$"{Directory.GetCurrentDirectory()}/../../../obj/Debug/netcoreapp3.1/CheckLinkCLI2JsonOutput_should.json";
+        private readonly string _jsonOutputShould = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/CheckLinkCLI2JsonOutput_should.json";
 
         private readonly FileReader fr = new FileReader();
 
