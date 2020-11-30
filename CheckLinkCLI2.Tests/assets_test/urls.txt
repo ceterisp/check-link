@@ -1,0 +1,4 @@
+https://wiki.cdot.senecacollege.ca/w/api.php?action=rsd
+http://en.wikipedia.org/wiki/Hackergotchi
+http://s-aleinikov.blog.ca/feed/atom/posts/
+http://www.danepstein.ca/category/open-source/feed
