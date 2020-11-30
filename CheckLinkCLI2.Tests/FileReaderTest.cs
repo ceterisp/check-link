@@ -86,18 +86,15 @@ namespace CheckLinkCLI2.Tests
             }
         }
 
-        [Fact(Skip = "Calls ProgressBar that prints to console, doesn't return value")]
-        public void ReadIgnorePatternsFromNoFileShould() // This use case causes the System to exit, therefore test can't run
+        [Fact]
+        public void ReadIgnorePatternsFromNoFileShould() 
         {
-            //Arrange
-
-            //Act
             var ignoredLinks = fr.ReadIgnorePatterns(_noFile);
             var ignoredLink = ignoredLinks[0];
-            //Assert
+            
             var sr = new StreamReader(_ignoreFileShould);
             string dLinks = sr.ReadLine();
-            Assert.Equal(dLinks, ignoredLink);
+            Assert.NotEqual(dLinks, ignoredLink);
         }
 
         [Fact(Skip = "Calls ProgressBar that prints to console, doesn't return value")]
@@ -109,5 +106,7 @@ namespace CheckLinkCLI2.Tests
             //Task.WaitAll(fr.WriteToJSON(_txtFile),)
             Assert.Equal(_jsonOutputShould, _jsonOutput);
         }
+
+
     }
 }
