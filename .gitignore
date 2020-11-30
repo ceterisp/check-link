@@ -4,7 +4,6 @@ Release*/
 project.lock.json
 .DS_Store
 *.pyc
-urls.txt
 .vscode
 
 *.suo
