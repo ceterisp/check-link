@@ -14,19 +14,6 @@ namespace CheckLinkCLI2.Tests
         private readonly string _jsonOutput = @$"{Directory.GetCurrentDirectory()}/../../../obj/Debug/netcoreapp3.1/CheckLinkCLI2JsonOutput_should.json";
         private readonly string _jsonOutputShould = @$"{Directory.GetCurrentDirectory()}/../../../assets_test/CheckLinkCLI2JsonOutput_should.json";
 
-        /*
-         * TODO: Have different tests for different use cases
-         * TODO: Functions with different arguments should have its own tests
-         * TODO: Write tests that covers all paths of the entire code
-         * TODO: Write separate tests to check whether the code hits the if statements and the ternary operators
-         * TODO: Write test cases for 'good' values. E.g. If the function takes a number, what does a valid number look like?
-         * TODO: Write test cases for 'bad' values. E.g. think of ways the function can break. Think like a pessimist and consider all the ways the function can break
-         * TODO: Consider the proper return type of the functions. Write test cases for possible 'good' return values
-         * TODO: Consider any extreme error cases. E.g. does my function throw in certain conditions, what are they? Check if it did
-         * In the end, check if the tests fail when the functions are changes
-         *
-        */
-
         private readonly FileReader fr = new FileReader();
 
         [Fact]

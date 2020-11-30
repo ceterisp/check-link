@@ -84,8 +84,7 @@ namespace CheckLinkCLI2
             }
             else
             {
-                Console.WriteLine("The ignore pattern file is invalid. A ignore pattern file should not include anything other than a comment(#) or a URL(http://, https://).");
-                System.Environment.Exit(1);
+                ignorePatterns.Add("The ignore pattern file is invalid. A ignore pattern file should not include anything other than a comment(#) or a URL(http://, https://).");
             }
 
             return ignorePatterns;
