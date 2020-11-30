@@ -1,5 +1,7 @@
 # Check-Link
 
+![.NET Core](https://github.com/abuZayed15/check-link/workflows/.NET%20Core/badge.svg?branch=master)
+
 Command-Line Interface (CLI) application to check if a web link is active or broken.
 
 ## How to run the application in Powershell/CMD
