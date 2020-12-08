@@ -4,11 +4,18 @@
 
 Command-Line Interface (CLI) application to check if a web link is active or broken.
 
+## How to run the application in Linux shell
+
+- Linux distribution users can download the application from the [latest release](https://github.com/abuZayed15/check-link/releases/tag/v1.0.1).
+- Once downloaded, simply use the application by running `./CheckLinkCLI2` followed the path to your file that stores the web links. For ease, simply move to the current directory where application is downloaded.
+- If the passed file or file path is a directory, the application will read all the files in this directory.
+- The application will then parse through all the links in the file and return the http status codes to the cli.
+
 ## How to run the application in Powershell/CMD
 
-- Download the executable file [CheckLinkCLI2.exe](https://github.com/abuZayed15/check-link/releases/download/0.1/CheckLinkCLI2.exe) in any local folder of your choice
-- Open Powershell or cmd.exe and navigate to the file path where executable is downloaded
-- Simply type `.\CheckLinkCLI2.exe` + the absolute path to your .txt or .html file 
+- Windows users can download the application from the [latest release](https://github.com/abuZayed15/check-link/releases/tag/v1.0.0) in any local folder of your choice.
+- Open Powershell or cmd.exe and navigate to the directory where executable is downloaded.
+- To run the application simply type `.\CheckLinkCLI2.exe` + the path to your .txt or .html file. 
 - If the passed file or file path is a directory, the application will read all the files in this directory
 - The application will then parse through all the links in the file and return the http status codes to the cli
 
